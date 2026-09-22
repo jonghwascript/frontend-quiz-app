@@ -34,6 +34,7 @@
   --space: 0.75rem; // 촘촘한 간격이 필요할 때
 }
 
+
 .stack[data-space='normal'] {
   --space: 1rem; //16px
 }
@@ -119,6 +120,10 @@
   --padding: 1rem; //16px;
 }
 
+.box[data-padding='medium'] {
+  --padding: 1.5rem; //24px;
+}
+
 .box[data-padding='large'] {
   --padding: 3rem;
 }
@@ -174,8 +179,17 @@
   justify-content: flex-start;
 }
 
+.cluster[data-justify='end'] {
+  justify-content: flex-end;
+}
+
+
 .cluster[data-justify='between'] {
   justify-content: space-between;
+}
+
+.cluster[data-justify='evenly'] {
+  justify-content: space-evenly;
 }
 
 .cluster[data-gap='small'] {
@@ -226,7 +240,8 @@
   // 자식 요소들이 커질 수 있도록 허용
   flex-grow: 1;
   // --threshold를 기준으로 가로/세로 레이아웃 자동 전환 (수학적 트릭)
-  flex-basis: calc((var(--threshold) - 100%) * 999);
+  //  변수가 없으면 기본값으로 48rem(768px)을 사용하도록 세팅
+  flex-basis: calc((var(--threshold, 48rem) - 100%) * 999);
 }
 .switcher > :nth-last-child(n + 5),
 .switcher > :nth-last-child(n + 5) ~ * {

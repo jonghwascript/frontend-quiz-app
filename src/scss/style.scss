@@ -1,18 +1,116 @@
-@use 'fonts' as *;
-@use 'reset' as *;
-@use 'variables' as v;
-@use 'mixins' as m; // _mixins.scss 파일이 같은 폴더에 있는 경우
-@use 'layout' as *;
+@use 'fonts'as *;
+@use 'reset'as *;
+@use 'variables'as *;
+@use 'mixins'as *; // _mixins.scss 파일이 같은 폴더에 있는 경우
+@use 'utilities'as *;
+@use 'layout'as *;
+@use 'icon'as *;
+@use 'button'as *;
+
+html {
+  font-size: 100%;
+}
+
+// 기본(라이트) 모드 변수 세팅
+:root {
+  --color-bg: #{$Grey-50};
+  --color-text: #{$Blue-900};
+  --color-primary: #000000;
+}
+
+:root[data-theme="dark"] {
+  --color-bg: #{$Blue-900};
+  --color-text: #{$White};
+  --color-primary: #a4ffaf;
+  /* 네온 그린 */
+}
 
 body {
-  @include m.font-style(16px, 400, 1);
-  background-color: #fff;
+  font-family:
+    'Rubik',
+    system-ui,
+    -apple-system,
+    sans-serif;
+
+  background: var(--color-bg) url(../images/pattern-background-desktop-light.svg) no-repeat;
 }
 
-// 컨텐츠 가운데 정렬 + 최대폭 wrapper. 챌린지마다 max-width 값만 바꿔서 쓴다.
-.container {
-  @include m.container(1110px, 24px);
+.quiz-app {
+  padding-inline: 0;
 }
 
-// tablet/desktop에서 레이아웃 구조 자체가 바뀔 때(예: flex-direction, grid-template-columns)는
-// @include m.mq('tablet') { ... } 처럼 각 셀렉터 안에서 사용한다.
+.quiz-app>.center {
+  box-sizing: border-box;
+  width: 100%;
+  //center에서는 좌우 1.5rem 패딩이 존재한다.
+  max-inline-size: calc(1157px - 3rem);
+
+  padding-inline: clamp(1.500rem, calc(-0.286rem + 8.929vw), 4.000rem);
+
+  --theme: light;
+  // 이 구역은 다크 테마라고 선언 
+
+  >.stack {
+    gap: clamp(2.000rem, calc(0.477rem + 7.614vw), 6.188rem);
+  }
+}
+
+.current-topic {
+  gap: clamp(1.000rem, calc(0.818rem + 0.909vw), 1.500rem);
+}
+
+.theme-control {
+  gap: clamp(0.500rem, calc(0.318rem + 0.909vw), 1.000rem);
+}
+
+.quiz-header.cluster {
+  //줄바꿈 시 세로로 찢어지는 현상 방지
+  align-content: flex-start;
+  gap: 0.5rem 1rem; //8px 16px
+}
+
+#main {
+  gap: clamp(2.500rem, calc(1.159rem + 6.705vw), 6.188rem);
+}
+
+.quiz-intro {
+  gap: clamp(1.000rem, calc(0.273rem + 3.636vw), 3.000rem)
+}
+
+
+.question-list,
+.topic-list {
+  li {
+    max-width: 100%;
+  }
+}
+
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Question
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+.quiz-question {
+  >.stack {
+    gap: clamp(1.500rem, calc(-2.136rem + 18.182vw), 11.500rem);
+
+    >.stack {
+      gap: clamp(1.000rem, calc(0.818rem + 0.909vw), 1.500rem);
+    }
+  }
+}
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Score
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+.question-result {
+  .output.box {
+    padding: clamp(2.000rem, calc(1.286rem + 3.571vw), 3.000rem);
+
+    .outer.stack {
+      gap: clamp(1.000rem, calc(-0.071rem + 5.357vw), 2.500rem);
+      .inner.stack{
+        text-align: center;
+      }
+    }
+  }
+}
