@@ -451,6 +451,69 @@ h4 {
   background-image: url(../images/icon-accessibility.svg);
 }
 
+.question-button,
+.topic-button {
+  inline-size: 100%;
+  border-radius: 24px;
+  font: normal 500 1.75rem/1 Rubik;
+  padding: 24px;
+  box-shadow: 10px 20px 30px rgba(0, 0, 0, 0.08);
+}
+
+.question-button {
+  position: relative;
+}
+.question-button::before {
+  content: attr(data-text);
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  line-height: 56px;
+  color: #626C7F;
+  background-color: #F4F6FA;
+}
+.question-button--purple {
+  border: 3px solid #A729F5;
+}
+.question-button--purple::before {
+  color: #fff;
+  background-color: #A729F5;
+}
+.question-button--green {
+  border: 3px solid #2FD887;
+}
+.question-button--green::before {
+  color: #fff;
+  background-color: #2FD887;
+}
+.question-button--green::after {
+  content: "";
+  margin-inline-start: auto;
+  width: 40px;
+  height: 40px;
+  background-image: url(../images/icon-correct.svg);
+}
+.question-button--red {
+  border: 3px solid #EE5454;
+}
+.question-button--red::before {
+  color: #fff;
+  background-color: #EE5454;
+}
+.question-button--red::after {
+  content: "";
+  margin-inline-start: auto;
+  width: 40px;
+  height: 40px;
+  background-image: url(../images/icon-incorrect.svg);
+}
+@container style(--theme:dark) {
+  .question-button {
+    color: #fff;
+    background-color: #3B4D66;
+  }
+}
+
 html {
   font-size: 100%;
 }
@@ -481,7 +544,8 @@ body {
   box-sizing: border-box;
   width: 100%;
   max-inline-size: calc(1157px - 3rem);
-  --theme: dark;
+  padding-inline: clamp(1.5rem, -0.286rem + 8.929vw, 4rem);
+  --theme: light;
 }
 .quiz-app > .center > .stack {
   gap: clamp(2rem, 0.477rem + 7.614vw, 6.188rem);
@@ -508,10 +572,25 @@ body {
   gap: clamp(1rem, 0.273rem + 3.636vw, 3rem);
 }
 
-.topic-button {
-  width: 100%;
-  max-inline-size: 640px;
-  border-radius: 24px;
-  padding: 24px;
+.question-list li,
+.topic-list li {
+  max-width: 100%;
+}
+
+.quiz-question > .stack {
+  gap: clamp(1.5rem, -2.136rem + 18.182vw, 11.5rem);
+}
+.quiz-question > .stack > .stack {
+  gap: clamp(1rem, 0.818rem + 0.909vw, 1.5rem);
+}
+
+.question-result .output.box {
+  padding: clamp(2rem, 1.286rem + 3.571vw, 3rem);
+}
+.question-result .output.box .outer.stack {
+  gap: clamp(1rem, -0.071rem + 5.357vw, 2.5rem);
+}
+.question-result .output.box .outer.stack .inner.stack {
+  text-align: center;
 }
 /*# sourceMappingURL=style.css.map */

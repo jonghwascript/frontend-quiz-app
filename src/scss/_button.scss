@@ -1,0 +1,76 @@
+@use 'variables'as *;
+
+
+.question-button,
+.topic-button {
+  inline-size: 100%;
+  border-radius: 24px;
+  font: $TextPreset-4-m;
+  padding: 24px;
+
+  box-shadow: 10px 20px 30px rgba(0, 0, 0, 0.08);
+}
+
+.question-button {
+  position: relative;
+
+  &::before {
+    content: attr(data-text);
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    line-height: 56px;
+    color: $Grey-500;
+    background-color: $Grey-50;
+  }
+
+  &--purple {
+    border: 3px solid $Purple-600;
+
+    &::before {
+      color: #fff;
+      background-color: $Purple-600;
+    }
+  }
+
+  &--green {
+    border: 3px solid $Green-500;
+
+    &::before {
+      color: #fff;
+      background-color: $Green-500;
+    }
+
+    &::after {
+      content: '';
+      // 오른쪽 끝에 붙인다.
+      margin-inline-start: auto;
+      width: 40px;
+      height: 40px;
+      background-image: url(../images/icon-correct.svg);
+    }
+  }
+
+  &--red {
+    border: 3px solid $Red-500;
+
+    &::before {
+      color: #fff;
+      background-color: $Red-500;
+    }
+
+    &::after {
+      content: '';
+      // 오른쪽 끝에 붙인다.
+      margin-inline-start: auto;
+      width: 40px;
+      height: 40px;
+      background-image: url(../images/icon-incorrect.svg);
+    }
+  }
+
+  @container style(--theme:dark) {
+    color: #fff;
+    background-color: $Blue-850;
+  }
+}

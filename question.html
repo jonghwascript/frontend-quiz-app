@@ -54,37 +54,42 @@
         </header>
         <main id="main" class="switcher" style="--threshold:48rem;">
           <!-- 퀴즈 안내와 과목 선택 -->
-          <div class="quiz-intro stack box">
-            <h1 class="quiz-title">
-              Welcome to the Frontend Quiz!
-            </h1>
-            <p>
-              Pick a subject to get started.
-            </p>
+          <div class="quiz-question stack">
+            <div class="stack outer">
+              <div class="stack inner">
+                <p class="quiz-counter">
+                  Question 6 of 10
+                </p>
+                <h1 class="quiz-question">
+                  Which of these color contrast ratios defines the minimum WCAG 2.1 Level AA requirement for normal
+                  text?
+                </h1>
+              </div>
+              <div role="progressbar" class="quiz-progress" aria-label="Quiz progress">========</div>
+            </div>
           </div>
-          <ul class="topic-list stack">
+          <ul class="question-list stack">
             <li>
-              <button class="cluster box topic-button" style="--padding: 16px;" data-justify="start">
-                <span class="topic-icon topic-icon--html"></span>
-                <span>HTML</span>
+              <button class="cluster box question-button" style="--padding: 16px;" data-justify="start" data-text="A">
+                <span>4.5 : 1</span>
               </button>
             </li>
             <li>
-              <button class="cluster box topic-button" style="--padding: 16px;" data-justify="start">
-                <span class="topic-icon topic-icon--css"></span>
-                <span>CSS</span>
+              <button class="cluster box question-button question-button--purple" style="--padding: 16px;"
+                data-justify="start" data-text="A">
+                <span>4.5 : 1</span>
               </button>
             </li>
             <li>
-              <button class="cluster box topic-button" style="--padding: 16px;" data-justify="start">
-                <span class="topic-icon topic-icon--js"></span>
-                <span>JavaScript</span>
+              <button class="cluster box question-button question-button--green" style="--padding: 16px;"
+                data-justify="start" data-text="A">
+                <span>4.5 : 1</span>
               </button>
             </li>
             <li>
-              <button class="cluster box topic-button" style="--padding: 16px;" data-justify="start">
-                <span class="topic-icon topic-icon--accessibility"></span>
-                <span>Accessibility</span>
+              <button class="cluster box question-button question-button--red" style="--padding: 16px;"
+                data-justify="start" data-text="A">
+                <span>4.5 : 1</span>
               </button>
             </li>
           </ul>

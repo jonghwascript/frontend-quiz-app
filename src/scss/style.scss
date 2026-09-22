@@ -5,6 +5,7 @@
 @use 'utilities'as *;
 @use 'layout'as *;
 @use 'icon'as *;
+@use 'button'as *;
 
 html {
   font-size: 100%;
@@ -44,7 +45,9 @@ body {
   //center에서는 좌우 1.5rem 패딩이 존재한다.
   max-inline-size: calc(1157px - 3rem);
 
-  --theme: dark;
+  padding-inline: clamp(1.500rem, calc(-0.286rem + 8.929vw), 4.000rem);
+
+  --theme: light;
   // 이 구역은 다크 테마라고 선언 
 
   >.stack {
@@ -74,10 +77,40 @@ body {
   gap: clamp(1.000rem, calc(0.273rem + 3.636vw), 3.000rem)
 }
 
-.topic-button {
-  width: 100%;
-  max-inline-size: 640px;
 
-  border-radius: 24px;
-  padding: 24px;
+.question-list,
+.topic-list {
+  li {
+    max-width: 100%;
+  }
+}
+
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Question
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+.quiz-question {
+  >.stack {
+    gap: clamp(1.500rem, calc(-2.136rem + 18.182vw), 11.500rem);
+
+    >.stack {
+      gap: clamp(1.000rem, calc(0.818rem + 0.909vw), 1.500rem);
+    }
+  }
+}
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Score
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+.question-result {
+  .output.box {
+    padding: clamp(2.000rem, calc(1.286rem + 3.571vw), 3.000rem);
+
+    .outer.stack {
+      gap: clamp(1.000rem, calc(-0.071rem + 5.357vw), 2.500rem);
+      .inner.stack{
+        text-align: center;
+      }
+    }
+  }
 }
