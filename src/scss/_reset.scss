@@ -33,31 +33,34 @@ video {
 
   // 스케일 업 (점점 커지는 사이즈)
   --s0: var(--base-size);
-  --s1: calc(var(--s0) * var(--ratio));     // 1.5rem
-  --s2: calc(var(--s1) * var(--ratio));     // 2.25rem
-  --s3: calc(var(--s2) * var(--ratio));     // 3.375rem
-  --s4: calc(var(--s3) * var(--ratio));     // 5.0625rem
+  --s1: calc(var(--s0) * var(--ratio)); // 1.5rem
+  --s2: calc(var(--s1) * var(--ratio)); // 2.25rem
+  --s3: calc(var(--s2) * var(--ratio)); // 3.375rem
+  --s4: calc(var(--s3) * var(--ratio)); // 5.0625rem
 
   // 스케일 다운 (점점 작아지는 사이즈 - 캡션이나 작은 아이콘용)
-  --s-1: calc(var(--s0) / var(--ratio));    // 0.66rem
-  --s-2: calc(var(--s-1) / var(--ratio));   // 0.44rem
+  --s-1: calc(var(--s0) / var(--ratio)); // 0.66rem
+  --s-2: calc(var(--s-1) / var(--ratio)); // 0.44rem
 }
 
 // ==========================================
-// 3. 타이포그래피와 가독성 
+// 3. 타이포그래피와 가독성
 // ==========================================
 
 body {
   // 글로벌 폰트 설정
-  font-family: system-ui, -apple-system, sans-serif;
-  
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+
   // 모듈러 스케일의 기준이 되는 줄 간격 고정
   line-height: var(--ratio);
-  
+
   // 글자색과 배경색의 대비 기본값
   color: #222;
   background-color: #fff;
-  
+
   // 텍스트 렌더링 최적화
   -webkit-font-smoothing: antialiased;
 }
@@ -69,8 +72,17 @@ figcaption {
   max-width: 60ch;
 }
 
+ul, ol{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 // 제목 태그들은 폰트가 크므로 줄 간격을 좁혀서 텍스트 덩어리를 묶어줌
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   line-height: 1.2;
   max-width: 60ch;
 }

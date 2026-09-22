@@ -9,3 +9,71 @@
   white-space: nowrap;
   border: 0;
 }
+
+// 사용: label.toggle-container > input.sr-only + span.toggle-track
+// input에 role="switch"를 지정하고 label 안에 이름을 제공합니다.
+// 크기: --toggle-width, --toggle-height, --toggle-padding
+// 색상: --toggle-off, --toggle-on, --toggle-thumb, --toggle-focus
+.toggle-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space, 0.5rem);
+  vertical-align: middle;
+
+  > .toggle-track {
+    --toggle-thumb-size: calc(
+      var(--toggle-height, 24px) - 2 * var(--toggle-padding, 2px)
+    );
+
+    position: relative;
+    display: inline-block;
+    flex-shrink: 0;
+    width: var(--toggle-width, 48px);
+    height: var(--toggle-height, 24px);
+    background-color: var(--toggle-off, #18171f);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: var(--toggle-padding, 2px);
+      left: var(--toggle-padding, 2px);
+      width: var(--toggle-thumb-size);
+      height: var(--toggle-thumb-size);
+      background-color: var(--toggle-thumb, #fff);
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+    }
+  }
+
+  > input[type='checkbox']:checked + .toggle-track {
+    background-color: var(--toggle-on, #a4ffaf);
+
+    &::after {
+      transform: translateX(
+        calc(var(--toggle-width, 48px) - var(--toggle-height, 24px))
+      );
+    }
+  }
+
+  > input[type='checkbox']:focus-visible + .toggle-track {
+    outline: 2px solid var(--toggle-focus, #a4ffaf);
+    outline-offset: 4px;
+  }
+
+  > input[type='checkbox']:disabled ~ .toggle-track,
+  > input[type='checkbox']:disabled ~ .toggle-label {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toggle-container > .toggle-track,
+  .toggle-container > .toggle-track::after {
+    transition: none;
+  }
+}
