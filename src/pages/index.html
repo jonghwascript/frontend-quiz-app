@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./css/style.css" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png" />
+  <title>Frontend Mentor | Frontend quiz app</title>
+</head>
+
+<body>
+  <div class="quiz-app cover">
+    <!-- 앱 전체를 감싸는 영역 -->
+    <div class="center">
+      <div class="stack">
+        @@include('../partials/header.html', {
+        "showTopic": false,
+        "topicName": "",
+        "topicKey": ""
+        })
+        <main id="main" class="switcher" style="--threshold:48rem;">
+          <!-- 퀴즈 안내와 과목 선택 -->
+          <div class="quiz-intro stack">
+            <h1 class="quiz-title">
+              Welcome to the <strong>Frontend Quiz!</strong>
+            </h1>
+            <p class="quiz-pick">
+              Pick a subject to get started.
+            </p>
+          </div>
+          <ul class="topic-list stack">
+            <li>
+              <button class="cluster box topic-button" style="--padding: 16px;" data-justify="start">
+                <span class="topic-icon topic-icon--html"></span>
+                <span class="topic-text">HTML</span>
+              </button>
+            </li>
+            <li>
+              <button class="cluster box topic-button" style="--padding: 16px;" data-justify="start">
+                <span class="topic-icon topic-icon--css"></span>
+                <span class="topic-text">CSS</span>
+              </button>
+            </li>
+            <li>
+              <button class="cluster box topic-button" style="--padding: 16px;" data-justify="start">
+                <span class="topic-icon topic-icon--js"></span>
+                <span class="topic-text">JavaScript</span>
+              </button>
+            </li>
+            <li>
+              <button class="cluster box topic-button" style="--padding: 16px;" data-justify="start">
+                <span class="topic-icon topic-icon--accessibility"></span>
+                <span class="topic-text">Accessibility</span>
+              </button>
+            </li>
+          </ul>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

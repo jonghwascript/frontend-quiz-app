@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./css/style.css" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png" />
+  <title>Frontend Mentor | Frontend quiz app</title>
+</head>
+
+<body>
+  <div class="quiz-app cover">
+    <!-- 앱 전체를 감싸는 영역 -->
+    <div class="center">
+      <div class="stack">
+        @@include('../partials/header.html', {
+        "showTopic": true,
+        "topicName": "HTML",
+        "topicKey": "html"
+        })
+        <main id="main" class="switcher" style="--threshold:48rem;">
+          <!-- 퀴즈 안내와 과목 선택 -->
+          <div class="quiz-score stack">
+            <div class="stack outer">
+              <div class="stack inner">
+                <h1 class="quiz-scored">
+                  Quiz completed <strong>You scored...</strong>
+                </h1>
+              </div>
+            </div>
+          </div>
+          <div class="question-result stack">
+            <div class="output box">
+              <div class="outer stack">
+                <!-- 현재 과목과 테마 설정 -->
+                <div class="current-topic cluster">
+                  <!-- 현재 퀴즈 주제 -->
+                  <span class="topic-icon topic-icon--html"></span>
+                  <span>HTML</span>
+                </div>
+                <div class="inner stack" style="--space:16px;">
+                  <output class="quiz-score">8</output>
+                  <p class="quiz-counter">out of 10</p>
+                </div>
+              </div>
+            </div>
+            <button class="again-button" type="button">Play Again</button>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

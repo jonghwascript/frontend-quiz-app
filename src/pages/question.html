@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./css/style.css" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png" />
+  <title>Frontend Mentor | Frontend quiz app</title>
+</head>
+
+<body>
+  <div class="quiz-app cover">
+    <!-- 앱 전체를 감싸는 영역 -->
+    <div class="center">
+      <div class="stack">
+        @@include('../partials/header.html', {
+        "showTopic": true,
+        "topicName": "HTML",
+        "topicKey": "html"
+        })
+        <main id="main" class="switcher" style="--threshold:48rem;">
+          <!-- 퀴즈 안내와 과목 선택 -->
+          <div class="quiz-question stack">
+            <div class="stack outer">
+              <div class="stack inner">
+                <p class="quiz-counter">
+                  Question 6 of 10
+                </p>
+                <h1 class="quiz-question">
+                  Which of these color contrast ratios defines the minimum WCAG 2.1 Level AA requirement for normal
+                  text?
+                </h1>
+              </div>
+              <!-- <div role="progressbar" class="quiz-progress" aria-label="Quiz progress">========</div> -->
+              <progress class="quiz-progress" max="100" value="70">70%</progress>
+            </div>
+          </div>
+          <form class="quiz-form stack">
+            <ul class="question-list stack">
+              <li>
+                <button class="cluster box question-button" style="--padding: 16px;" data-justify="start" data-text="A">
+                  <span>4.5 : 1</span>
+                </button>
+              </li>
+              <li>
+                <button class="cluster box question-button question-button--purple" style="--padding: 16px;"
+                  data-justify="start" data-text="A">
+                  <span>4.5 : 1</span>
+                </button>
+              </li>
+              <li>
+                <button class="cluster box question-button question-button--green" style="--padding: 16px;"
+                  data-justify="start" data-text="A">
+                  <span>4.5 : 1</span>
+                </button>
+              </li>
+              <li>
+                <button class="cluster box question-button question-button--red" style="--padding: 16px;"
+                  data-justify="start" data-text="A">
+                  <span>4.5 : 1</span>
+                </button>
+              </li>
+            </ul>
+            <button type="submit" class="quiz-answer">Submit Answer</button>
+          </form>
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
