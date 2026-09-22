@@ -1,51 +1,45 @@
 @charset "UTF-8";
 
+$White: #ffffff;
+$Black: #000000;
 
-$White : #FFFFFF;
-$Black : #000000;
+$Grey-500: #626c7f;
+$Grey-50: #f4f6fa;
 
-$Grey-500 : #626C7F;
-$Grey-50 : #F4F6FA;
+$Blue-950: #2d3949;
+$Blue-900: #313e51;
+$Blue-850: #3b4d66;
+$Blue-500: #306aff;
+$Blue-300: #abc1e1;
+$Blue-50: #ebf0ff;
 
-$Blue-950 :#2D3949;
-$Blue-900 :#313E51;
-$Blue-850 : #3B4D66;
-$Blue-500 : #306AFF;
-$Blue-300 : #ABC1E1;
-$Blue-50 : #EBF0FF;
+$Green-500: #2fd887;
+$Green-100: #e0fdef;
+$Purple-600: #a729f5;
+$Purple-100: #f6e7ff;
 
-$Green-500: #2FD887;
-$Green-100: #E0FDEF;
-$Purple-600: #A729F5;
-$Purple-100: #F6E7FF;
+$Orange-400: #ff7e35;
+$Orange-50: #fff5ed;
 
-$Orange-400: #FF7E35;
-$Orange-50: #FFF5ED;
+$Red-500: #ee5454;
 
-$Red-500: #EE5454;
+/// 이탤릭체, 굵게, 크기 1.2rem, 줄간격 1.5배, 폰트
+$TextPreset-1-m: normal 500 clamp(5.5rem, calc(2.16rem + 14.249vw), 9rem)/1 Rubik,sans-serif; //88 ~ 144px
 
-/// 이탤릭체, 굵게, 크기 1.2rem, 줄간격 1.5배, 폰트 
-$TextPreset-1-m: normal 500 9rem/1.0 Rubik; //144px  
-$TextPreset-1-m-mobile: normal 500 5.5rem/1.0 Rubik; //88px  
+$TextPreset-2-m: normal 500 clamp(2.5rem, calc(1.069rem + 6.107vw), 4rem)/1 Rubik, sans-serif; //40 ~ 64px
 
-$TextPreset-2-m: normal 500 4rem/1.0 Rubik; //64px
-$TextPreset-2-m-mobile: normal 500 2.5rem/1.0 Rubik; //40px
+$TextPreset-2-l: normal 300 clamp(2.5rem, calc(1.307rem + 5.089vw), 3.75rem)/1 Rubik,sans-serif; //40 ~ 64px
 
-$TextPreset-2-l: normal 300 4rem/1.0 Rubik; //64px
-$TextPreset-2-l-mobile: normal 300 2.5rem/1.0 Rubik; //40px
+$TextPreset-3-m: normal 500 clamp(1.25rem, calc(0.296rem + 4.071vw), 2.25rem)/1.2 Rubik,sans-serif; //20 ~ 36px
 
-$TextPreset-3-m: normal 500 2.25rem/1.2 Rubik; //36px
-$TextPreset-3-m-mobile: normal 500 1.25rem/1.2 Rubik; //20px
+$TextPreset-4-m: normal 500 clamp(1.125rem, calc(0.529rem + 2.545vw), 1.75rem)/1 Rubik, sans-serif; //18 ~ 28px
 
+$TextPreset-5-m: normal 500 clamp(0.875rem, calc(0.279rem + 2.545vw), 1.5rem)/1.5 Rubik,sans-serif; //14  ~ 24px
 
-$TextPreset-4-m: normal 500 1.75rem/1.0 Rubik; //28px
-$TextPreset-4-m-mobile: normal 500 1.75rem/1.0 Rubik; //18px
+$TextPreset-5-r-italic: italic 400 clamp(0.875rem, calc(0.517rem + 1.527vw), 1.25rem)/1.5 Rubik,sans-serif; //14  ~ 20px
 
-$TextPreset-5-m: normal 500 1.5rem/1.5 Rubik; //24px
-$TextPreset-5-m-mobile: italic 500 0.875rem/1.5 Rubik; //24px
-
-$TextPreset-5-r: normal 400 1.5rem/1.5 Rubik; //24px
-$TextPreset-6-r: italic 400 1.25rem/1.5 Rubik; //20px
+$TextPreset-5-r: normal 400 1.5rem/1.5 Rubik,sans-serif; //24px
+$TextPreset-6-r: italic 400 1.25rem/1.5 Rubik,sans-serif; //20px
 
 $spacing-100: 0.5rem;
 $spacing-200: 1rem;
@@ -57,5 +51,3 @@ $spacing-800: 4rem;
 $spacing-1600: 8rem;
 $spacing-1800: 9rem;
 $spacing-2300: 11.5rem;
-
-

@@ -1,20 +1,19 @@
 @charset "UTF-8";
-@use 'variables'as *;
+@use 'variables' as *;
 
 .topic-icon {
-  // 박스 크기를 clamp()로 유동화 (최소 40px ~ 최대 56px) 
+  // 박스 크기를 clamp()로 유동화 (최소 40px ~ 최대 56px)
   width: clamp(2.5rem, calc(2.136rem + 1.818vw), 3.5rem);
   // height 대신 aspect-ratio를 써서 항상 1:1 정사각형 유지
-  aspect-ratio: 1; 
+  aspect-ratio: 1;
   position: relative;
-  
 
   &::before {
     content: '';
     position: absolute;
 
     // top, left, right, bottom: 0을 한 줄로 끝내는 모던 CSS
-    inset: 0; 
+    inset: 0;
 
     background-repeat: no-repeat;
     background-position: center;
@@ -22,7 +21,6 @@
     background-size: calc(32 / 56 * 100%);
     border-radius: 8px;
   }
-
 
   &--html::before {
     background-color: $Orange-50;

@@ -56,7 +56,8 @@ figcaption {
   max-width: 60ch;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -136,6 +137,46 @@ h4 {
     transition: none;
   }
 }
+.quiz-progress {
+  /* 1. 브라우저의 기본 3D/그림자 스타일 싹 지우기 (필수) */
+  appearance: none;
+  border: none;
+  /* 2. 크기 지정 */
+  width: 100%;
+  height: 16px; /* 원하는 막대 두께 */
+  /* 3. 파이어폭스(Firefox)를 위한 트랙(배경) 색상 및 둥근 모서리 */
+  background-color: #ffffff; /* 빈 배경색 */
+  border-radius: 104px; /* 완전 둥글게 */
+  padding: 4px;
+  /* ------------------------------------------------
+     🍎 크롬, 사파리, 엣지 (Webkit) 전용 스타일
+  ------------------------------------------------- */
+  /* Webkit 전체 트랙(배경) */
+}
+.quiz-progress::-webkit-progress-bar {
+  background-color: #ffffff;
+  border-radius: 104px;
+  /* Frontend Mentor 시안에 주로 있는 안쪽 여백(padding)이 필요하다면 여기에 추가 */
+  padding: 4px;
+}
+.quiz-progress {
+  /* Webkit 채워진 부분 (게이지) */
+}
+.quiz-progress::-webkit-progress-value {
+  background-color: #a729f5; /* 채워지는 색상 */
+  border-radius: 104px;
+}
+.quiz-progress {
+  /* ------------------------------------------------
+     🦊 파이어폭스 (Mozilla) 전용 스타일
+  ------------------------------------------------- */
+  /* 파이어폭스는 progress-bar가 '채워진 부분(게이지)'을 의미합니다! (이름이 헷갈리니 주의) */
+}
+.quiz-progress::-moz-progress-bar {
+  background-color: #a729f5;
+  border-radius: 104px;
+}
+
 .stack {
   --space: 1.5rem;
   display: flex;
@@ -435,28 +476,29 @@ h4 {
   border-radius: 8px;
 }
 .topic-icon--html::before {
-  background-color: #FFF5ED;
+  background-color: #fff5ed;
   background-image: url(../images/icon-html.svg);
 }
 .topic-icon--css::before {
-  background-color: #E0FDEF;
+  background-color: #e0fdef;
   background-image: url(../images/icon-css.svg);
 }
 .topic-icon--js::before {
-  background-color: #EBF0FF;
+  background-color: #ebf0ff;
   background-image: url(../images/icon-js.svg);
 }
 .topic-icon--accessibility::before {
-  background-color: #F6E7FF;
+  background-color: #f6e7ff;
   background-image: url(../images/icon-accessibility.svg);
 }
 
-.question-button,
-.topic-button {
+.question-button.box,
+.topic-button.box {
   inline-size: 100%;
-  border-radius: 24px;
-  font: normal 500 1.75rem/1 Rubik;
-  padding: 24px;
+  border-radius: clamp(0.75rem, 0.214rem + 2.679vw, 1.5rem);
+  font: normal 500 clamp(1.125rem, 0.529rem + 2.545vw, 1.75rem)/1 Rubik, sans-serif;
+  padding: clamp(1rem, 0.711rem + 1.233vw, 1.5rem);
+  background-color: #ffffff;
   box-shadow: 10px 20px 30px rgba(0, 0, 0, 0.08);
 }
 
@@ -465,75 +507,112 @@ h4 {
 }
 .question-button::before {
   content: attr(data-text);
-  width: 56px;
-  height: 56px;
-  border-radius: 8px;
-  line-height: 56px;
-  color: #626C7F;
-  background-color: #F4F6FA;
+  width: clamp(2.5rem, 1.546rem + 4.071vw, 3.5rem);
+  height: clamp(2.5rem, 1.546rem + 4.071vw, 3.5rem);
+  border-radius: 0.5rem;
+  line-height: clamp(2.5rem, 1.546rem + 4.071vw, 3.5rem);
+  color: #626c7f;
+  background-color: #f4f6fa;
 }
 .question-button--purple {
-  border: 3px solid #A729F5;
+  border: 0.1875rem solid #a729f5;
 }
 .question-button--purple::before {
   color: #fff;
-  background-color: #A729F5;
+  background-color: #a729f5;
 }
 .question-button--green {
-  border: 3px solid #2FD887;
+  border: 0.1875rem solid #2fd887;
 }
 .question-button--green::before {
   color: #fff;
-  background-color: #2FD887;
+  background-color: #2fd887;
 }
 .question-button--green::after {
   content: "";
   margin-inline-start: auto;
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
   background-image: url(../images/icon-correct.svg);
 }
 .question-button--red {
-  border: 3px solid #EE5454;
+  border: 3px solid #ee5454;
 }
 .question-button--red::before {
   color: #fff;
-  background-color: #EE5454;
+  background-color: #ee5454;
 }
 .question-button--red::after {
   content: "";
   margin-inline-start: auto;
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
   background-image: url(../images/icon-incorrect.svg);
 }
 @container style(--theme:dark) {
   .question-button {
     color: #fff;
-    background-color: #3B4D66;
+    background-color: #3b4d66;
   }
 }
 
+/* 최상위 요소 하나로 완벽하게 통합 (html 또는 :root 중 하나만 씁니다) */
 html {
   font-size: 100%;
+  --theme: light;
+  /* 1. 기본 모드 (Light & Mobile) 변수 */
+  --color-bg: #f4f6fa;
+  --color-text: #313e51;
+  --bg-image: url(../images/pattern-background-mobile-light.svg);
+  /* 2. 라이트 모드 상태에서의 반응형 이미지 교체 */
+}
+@media (min-width: 768px) {
+  html {
+    --bg-image: url(../images/pattern-background-tablet-light.svg);
+  }
+}
+@media (min-width: 1024px) {
+  html {
+    --bg-image: url(../images/pattern-background-desktop-light.svg);
+  }
+}
+html {
+  /* ---------------------------------------------------
+     3. 다크 모드 (Dark) 변수 덮어쓰기
+  --------------------------------------------------- */
+}
+html[data-theme=dark] {
+  --theme: dark;
+  --color-bg: #313e51;
+  --color-text: #ffffff;
+  /* 다크 모드 - 모바일 이미지 */
+  --bg-image: url(../images/pattern-background-mobile-dark.svg);
+  /* 다크 모드 상태에서의 반응형 이미지 교체 */
+}
+@media (min-width: 768px) {
+  html[data-theme=dark] {
+    --bg-image: url(../images/pattern-background-tablet-dark.svg);
+  }
+}
+@media (min-width: 1024px) {
+  html[data-theme=dark] {
+    --bg-image: url(../images/pattern-background-desktop-dark.svg);
+  }
 }
 
-:root {
-  --color-bg: #F4F6FA;
-  --color-text: #313E51;
-  --color-primary: #000000;
-}
-
-:root[data-theme=dark] {
-  --color-bg: #313E51;
-  --color-text: #FFFFFF;
-  --color-primary: #a4ffaf;
-  /* 네온 그린 */
-}
-
+/* 4. body는 변수만 가져다 쓰면 끝! */
 body {
   font-family: "Rubik", system-ui, -apple-system, sans-serif;
-  background: var(--color-bg) url(../images/pattern-background-desktop-light.svg) no-repeat;
+  color: var(--color-text);
+  /* 글자색도 변수로 연동 */
+  /* 배경색과 배경 이미지를 한 줄로 깔끔하게 */
+  background: var(--color-bg) var(--bg-image) no-repeat;
+  background-size: cover;
+  background-position: top center;
+}
+
+.box {
+  background-color: transparent;
 }
 
 .quiz-app {
@@ -542,30 +621,46 @@ body {
 
 .quiz-app > .center {
   box-sizing: border-box;
-  width: 100%;
-  max-inline-size: calc(1157px - 3rem);
-  padding-inline: clamp(1.5rem, -0.286rem + 8.929vw, 4rem);
-  --theme: light;
+  inline-size: 100%;
+  max-inline-size: 90rem;
+  padding-inline: clamp(1.5rem, -0.885rem + 10.178vw, 4rem);
 }
 .quiz-app > .center > .stack {
   gap: clamp(2rem, 0.477rem + 7.614vw, 6.188rem);
 }
 
-.current-topic {
-  gap: clamp(1rem, 0.818rem + 0.909vw, 1.5rem);
-}
-
-.theme-control {
-  gap: clamp(0.5rem, 0.318rem + 0.909vw, 1rem);
-}
-
-.quiz-header.cluster {
+.quiz-header {
   align-content: flex-start;
   gap: 0.5rem 1rem;
 }
+.quiz-header .current-topic {
+  font: normal 500 clamp(1.125rem, 0.529rem + 2.545vw, 1.75rem)/1 Rubik, sans-serif;
+  gap: clamp(1rem, 0.523rem + 2.036vw, 1.5rem);
+}
+.quiz-header .theme-control {
+  gap: clamp(0.5rem, 0.023rem + 2.036vw, 1rem);
+}
+.quiz-header .theme-control .toggle-container {
+  --toggle-width: clamp(2rem, calc(1.046rem + 4.071vw), 3rem);
+  --toggle-height: clamp(1.25rem, calc(0.773rem + 2.036vw), 1.75rem);
+  --toggle-padding: 4px;
+  --toggle-off: #a729f5;
+  --toggle-on: #a729f5;
+}
+.quiz-header .theme-control .light-button,
+.quiz-header .theme-control .dark-button {
+  border: 0;
+  background-color: #f4f6fa;
+}
+.quiz-header .theme-control .light-button svg,
+.quiz-header .theme-control .dark-button svg {
+  width: clamp(1rem, 0.523rem + 2.036vw, 1.5rem);
+  height: auto;
+  aspect-ratio: 1;
+}
 
 #main {
-  gap: clamp(2.5rem, 1.159rem + 6.705vw, 6.188rem);
+  gap: clamp(2.5rem, 1.159rem + 6.705vw, 8rem);
 }
 
 .quiz-intro {
@@ -577,20 +672,110 @@ body {
   max-width: 100%;
 }
 
+.topic-list {
+  gap: 1rem;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .topic-list {
+    gap: 1.5rem;
+  }
+}
+.topic-list .topic-button .topic-text {
+  font: normal 500 clamp(1.125rem, 0.529rem + 2.545vw, 1.75rem)/1 Rubik, sans-serif;
+}
+
+.quiz-intro .quiz-title {
+  font: normal 300 clamp(2.5rem, 1.307rem + 5.089vw, 3.75rem)/1 Rubik, sans-serif;
+}
+.quiz-intro .quiz-title strong {
+  font: normal 500 clamp(2.5rem, 1.069rem + 6.107vw, 4rem)/1 Rubik, sans-serif;
+  display: block;
+}
+.quiz-intro .quiz-pick {
+  font: italic 400 clamp(0.875rem, 0.517rem + 1.527vw, 1.25rem)/1.5 Rubik, sans-serif;
+  color: #626c7f;
+}
+
 .quiz-question > .stack {
   gap: clamp(1.5rem, -2.136rem + 18.182vw, 11.5rem);
 }
 .quiz-question > .stack > .stack {
   gap: clamp(1rem, 0.818rem + 0.909vw, 1.5rem);
 }
+.quiz-question .quiz-counter {
+  font: italic 400 clamp(0.875rem, 0.517rem + 1.527vw, 1.25rem)/1.5 Rubik, sans-serif;
+}
+.quiz-question .quiz-question {
+  font: normal 500 clamp(1.25rem, 0.296rem + 4.071vw, 2.25rem)/1.2 Rubik, sans-serif;
+}
 
+.quiz-form .question-list {
+  gap: 1rem;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .quiz-form .question-list {
+    gap: 1.5rem;
+  }
+}
+.quiz-form .quiz-answer {
+  border: 1px solid transparent;
+  inline-size: 100%;
+  color: #ffffff;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.5019607843), rgba(255, 255, 255, 0.5019607843));
+  background-color: #a729f5;
+  padding: clamp(1rem, 0.046rem + 4.071vw, 2rem);
+  font: normal 500 clamp(1.125rem, 0.529rem + 2.545vw, 1.75rem)/1 Rubik, sans-serif;
+  padding: clamp(1rem, 0.046rem + 4.071vw, 2rem);
+  border-radius: clamp(0.75rem, 0.034rem + 3.053vw, 1.5rem);
+}
+.quiz-form .quiz-answer.active {
+  color: #ffffff;
+  background-color: #a729f5;
+}
+
+.question-result {
+  gap: clamp(1rem, 0.046rem + 4.071vw, 2rem);
+}
 .question-result .output.box {
+  background-color: #ffffff;
   padding: clamp(2rem, 1.286rem + 3.571vw, 3rem);
+  box-shadow: 10px 20px 30px rgba(0, 0, 0, 0.08);
 }
 .question-result .output.box .outer.stack {
   gap: clamp(1rem, -0.071rem + 5.357vw, 2.5rem);
 }
+.question-result .output.box .outer.stack .current-topic {
+  font: normal 500 clamp(1.125rem, 0.529rem + 2.545vw, 1.75rem)/1 Rubik, sans-serif;
+  color: #313e51;
+  gap: clamp(1rem, 0.523rem + 2.036vw, 1.5rem);
+}
 .question-result .output.box .outer.stack .inner.stack {
   text-align: center;
+}
+.question-result .output.box .outer.stack .inner.stack .quiz-score {
+  font: normal 500 clamp(5.5rem, 2.16rem + 14.249vw, 9rem)/1 Rubik, sans-serif;
+  color: #313e51;
+}
+.question-result .output.box .outer.stack .inner.stack .quiz-counter {
+  font: normal 500 clamp(1.125rem, 0.529rem + 2.545vw, 1.75rem)/1 Rubik, sans-serif;
+  color: #626c7f;
+}
+.question-result .again-button {
+  border: 1px solid transparent;
+  inline-size: 100%;
+  color: #ffffff;
+  padding: clamp(1rem, 0.046rem + 4.071vw, 2rem);
+  color: #ffffff;
+  background-color: #a729f5;
+  font: normal 500 clamp(1.125rem, 0.529rem + 2.545vw, 1.75rem)/1 Rubik, sans-serif;
+  padding: clamp(1rem, 0.046rem + 4.071vw, 2rem);
+  border-radius: clamp(0.75rem, 0.034rem + 3.053vw, 1.5rem);
+}
+
+.quiz-score .quiz-scored {
+  font: normal 300 clamp(2.5rem, 1.307rem + 5.089vw, 3.75rem)/1 Rubik, sans-serif;
+}
+.quiz-score .quiz-scored strong {
+  font: normal 500 clamp(2.5rem, 1.069rem + 6.107vw, 4rem)/1 Rubik, sans-serif;
 }
 /*# sourceMappingURL=style.css.map */

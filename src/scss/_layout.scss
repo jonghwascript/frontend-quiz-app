@@ -34,7 +34,6 @@
   --space: 0.75rem; // 촘촘한 간격이 필요할 때
 }
 
-
 .stack[data-space='normal'] {
   --space: 1rem; //16px
 }
@@ -182,7 +181,6 @@
 .cluster[data-justify='end'] {
   justify-content: flex-end;
 }
-
 
 .cluster[data-justify='between'] {
   justify-content: space-between;
