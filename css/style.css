@@ -689,13 +689,8 @@ body {
 .quiz-app > .center {
   box-sizing: border-box;
   inline-size: 100%;
-  max-inline-size: 1157px;
+  max-inline-size: 80.3125rem;
   padding-inline: clamp(1.5rem, -0.885rem + 10.178vw, 4rem);
-}
-@media (min-width: 1024px) {
-  .quiz-app > .center {
-    padding-inline: 0;
-  }
 }
 .quiz-app > .center > .stack {
   gap: clamp(2rem, 0.477rem + 7.614vw, 6.188rem);

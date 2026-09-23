@@ -73,16 +73,11 @@ body {
 .quiz-app > .center {
   box-sizing: border-box;
   inline-size: 100%;
-  //center에서는 좌우 1.5rem 패딩이 존재한다.
-  max-inline-size: 1157px;
+  // 콘텐츠 최대 너비 1157px에 양쪽 패딩 4rem씩 포함한다.
+  max-inline-size: calc(72.3125rem + 8rem);
 
   //모바일 24px, 태블릿 64px
   padding-inline: clamp(1.5rem, calc(-0.885rem + 10.178vw), 4rem);
-
-  //데스크탑은 패딩 없앤다.
-  @include mq('desktop') {
-    padding-inline: 0;
-  }
 
   > .stack {
     gap: clamp(2rem, calc(0.477rem + 7.614vw), 6.188rem);
