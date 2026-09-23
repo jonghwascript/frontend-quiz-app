@@ -27,6 +27,12 @@
 .topic-link {
   color: inherit;
   text-decoration: none;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      border-color: $Purple-600;
+    }
+  }
 }
 
 .answer-option {
@@ -53,6 +59,15 @@
 
   .answer-option__text {
     flex-grow: 0;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(.answer-option--purple, .answer-option--green, .answer-option--red):has(input[name='answer']:not(:checked):not(:disabled)) {
+      &::before {
+        color: $Purple-600;
+        background-color: $Purple-100;
+      }
+    }
   }
 
   &:has(input[name='answer']:checked:not(:disabled)) {

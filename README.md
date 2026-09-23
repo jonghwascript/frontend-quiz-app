@@ -13,6 +13,7 @@ This README focuses on the project's HTML and CSS structure.
   - [Built with](#built-with)
   - [Source structure](#source-structure)
   - [What I learned](#what-i-learned)
+  - [Review findings and improvements](#review-findings-and-improvements)
   - [Continued development](#continued-development)
   - [Useful project references](#useful-project-references)
   - [AI collaboration](#ai-collaboration)
@@ -348,6 +349,42 @@ The active theme button uses `aria-pressed="true"`. Its cursor returns to the de
 ```
 
 Changing the cursor is a visual cue; it does not disable the button. Selection state, keyboard focus, and whether a control can be activated must be considered separately.
+
+### Review findings and improvements
+
+#### Add hover feedback without overriding answer states
+
+Answer cards already had a pointer cursor and keyboard focus styles, but lacked a visual response before a mouse click. Hover now changes an unanswered card's letter badge to a pale purple background with purple text. Subject links receive a purple border.
+
+The answer-card selector excludes checked and disabled inputs as well as the explicit selected, correct, and incorrect classes. This keeps hover feedback from replacing selection or grading feedback. The rules apply within `@media (hover: hover) and (pointer: fine)` to target devices with a hover-capable, precise primary pointer. Existing focus outlines remain available to keyboard users.
+
+#### Match the switch label to the document language
+
+The document declares `lang="en"`, but the visually hidden theme-switch label was written in Korean. The shared header now uses an English accessible label:
+
+```html
+<span class="toggle-label sr-only">Dark mode</span>
+```
+
+Updating the shared partial and rebuilding applies the correction to all three pages. Visually hidden labels need the same language consistency as visible text.
+
+#### Remove duplicate spacing declarations
+
+The submit-button rule declared the same `padding` twice. Removing the duplicate preserves the computed spacing and leaves one declaration to maintain:
+
+```scss
+padding: clamp(1rem, calc(0.046rem + 4.071vw), 2rem);
+font: $TextPreset-4-m;
+border-radius: clamp(0.75rem, calc(0.034rem + 3.053vw), 1.5rem);
+```
+
+#### Verify the initial disabled state before changing it
+
+A review also questioned the submit button's initial `disabled` attribute. Checking its initialization flow confirmed that the button becomes enabled when a question is rendered, both after loading data and after restoring progress. The initial attribute was retained because it prevents submission before initialization. Once ready, an unanswered submission can still trigger the existing missing-answer feedback.
+
+The lesson was to distinguish initial HTML state from the state presented after initialization, rather than removing a protective attribute based on the template alone.
+
+The HTML and Sass builds completed successfully, and the generated markup and CSS were inspected. These checks do not replace browser-based hover, keyboard, and screen-reader testing.
 
 ### Continued development
 

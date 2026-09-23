@@ -546,6 +546,11 @@ legend {
   color: inherit;
   text-decoration: none;
 }
+@media (hover: hover) and (pointer: fine) {
+  .topic-link:hover {
+    border-color: #a729f5;
+  }
+}
 
 .answer-option {
   display: flex;
@@ -569,6 +574,12 @@ legend {
 }
 .answer-option .answer-option__text {
   flex-grow: 0;
+}
+@media (hover: hover) and (pointer: fine) {
+  .answer-option:hover:not(.answer-option--purple, .answer-option--green, .answer-option--red):has(input[name=answer]:not(:checked):not(:disabled))::before {
+    color: #a729f5;
+    background-color: #f6e7ff;
+  }
 }
 .answer-option:has(input[name=answer]:checked:not(:disabled)) {
   border: 0.1875rem solid #a729f5;
@@ -810,7 +821,6 @@ body {
   background-color: #a729f5;
   padding: clamp(1rem, 0.046rem + 4.071vw, 2rem);
   font: normal 500 clamp(1.125rem, 0.529rem + 2.545vw, 1.75rem)/1 Rubik, sans-serif;
-  padding: clamp(1rem, 0.046rem + 4.071vw, 2rem);
   border-radius: clamp(0.75rem, 0.034rem + 3.053vw, 1.5rem);
 }
 .quiz-form .quiz-submit.active {
