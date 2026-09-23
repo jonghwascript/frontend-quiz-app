@@ -87,3 +87,20 @@ h4 {
   line-height: 1.2;
   max-width: 60ch;
 }
+
+// Fieldset 완벽 초기화
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+
+  /// 스트나 자식 요소가 길어질 때 부모 밖으로 삐져나가는 레이아웃 붕괴 방지
+  min-width: 0;
+}
+
+// Fieldset의 단짝인 Legend도 함께 초기화해야 합니다
+legend {
+  padding: 0;
+  display: block; //블록 요소로 변경해야 flex나 margin 등 레이아웃 제어가 쉬워집니다
+  width: 100%;
+}

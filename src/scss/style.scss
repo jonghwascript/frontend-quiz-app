@@ -5,61 +5,61 @@
 @use 'utilities'as *;
 @use 'layout'as *;
 @use 'icon'as *;
-@use 'button'as *;
+@use 'quiz-options' as *;
 
-/* 최상위 요소 하나로 완벽하게 통합 (html 또는 :root 중 하나만 씁니다) */
+
 html {
   font-size: 100%;
   --theme: light;
 
-  /* 1. 기본 모드 (Light & Mobile) 변수 */
+  //기본 모드 (Light & Mobile) 변수 
   --color-bg: #{$Grey-50};
   --color-text: #{$Blue-900};
   --bg-image: url(../images/pattern-background-mobile-light.svg);
 
-  /* 2. 라이트 모드 상태에서의 반응형 이미지 교체 */
-  @media (min-width: 768px) {
+  // 라이트 모드 상태에서의 반응형 이미지 교체
+  @include mq('tablet') {
     --bg-image: url(../images/pattern-background-tablet-light.svg);
   }
 
-  @media (min-width: 1024px) {
+  @include mq('desktop') {
     --bg-image: url(../images/pattern-background-desktop-light.svg);
   }
 
-  /* ---------------------------------------------------
-     3. 다크 모드 (Dark) 변수 덮어쓰기
-  --------------------------------------------------- */
-  &[data-theme="dark"] {
+  // 다크 모드 (Dark) 변수 덮어쓰기
+  &[data-theme='dark'] {
     --theme: dark;
     --color-bg: #{$Blue-900};
     --color-text: #{$White};
 
-    /* 다크 모드 - 모바일 이미지 */
+    // 다크 모드 - 모바일 이미지
     --bg-image: url(../images/pattern-background-mobile-dark.svg);
 
-    /* 다크 모드 상태에서의 반응형 이미지 교체 */
-    @media (min-width: 768px) {
+    // 다크 모드 상태에서의 반응형 이미지 교체
+    @include mq('tablet') {
       --bg-image: url(../images/pattern-background-tablet-dark.svg);
     }
 
-    @media (min-width: 1024px) {
+    @include mq('desktop') {
       --bg-image: url(../images/pattern-background-desktop-dark.svg);
     }
   }
 }
 
-/* 4. body는 변수만 가져다 쓰면 끝! */
-body {
-  font-family: 'Rubik', system-ui, -apple-system, sans-serif;
-  color: var(--color-text);
-  /* 글자색도 변수로 연동 */
 
-  /* 배경색과 배경 이미지를 한 줄로 깔끔하게 */
+body {
+  font-family:
+    'Rubik',
+    system-ui,
+    -apple-system,
+    sans-serif;
+  color: var(--color-text);
+
+  // 배경색과 배경 이미지를 한 줄로 깔끔하게
   background: var(--color-bg) var(--bg-image) no-repeat;
   background-size: cover;
   background-position: top center;
 }
-
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // box의 모든 배경색
@@ -76,12 +76,15 @@ body {
   box-sizing: border-box;
   inline-size: 100%;
   //center에서는 좌우 1.5rem 패딩이 존재한다.
-  max-inline-size: 90rem;
+  max-inline-size: 1157px;
 
-  //모마일 24px, 태블릿 64px
+  //모바일 24px, 태블릿 64px
   padding-inline: clamp(1.5rem, calc(-0.885rem + 10.178vw), 4rem);
 
-  // 이 구역은 다크 테마라고 선언
+  //데스크탑은 패딩 없앤다.
+  @include mq('desktop') {
+    padding-inline: 0;
+  }
 
   >.stack {
     gap: clamp(2rem, calc(0.477rem + 7.614vw), 6.188rem);
@@ -127,8 +130,19 @@ body {
   }
 }
 
+// 스위처
 #main {
-  gap: clamp(2.5rem, calc(1.159rem + 6.705vw), 8rem);
+  // 가로일 땐 좌우 여백, 세로일 땐 위아래 여백으로 작동
+  gap: clamp(2.5rem, calc(-0.137rem + 11.253vw), 8rem);
+
+  // 가로 배치일 때의 비율 설정
+  .left {
+    flex-grow: 465;
+  }
+
+  .right {
+    flex-grow: 564;
+  }
 }
 
 .quiz-intro {
@@ -146,18 +160,16 @@ body {
   gap: 1rem; //16px
 
   //태블릿 구간 (예: 768px ~ 1023px)
-  @media (min-width: 768px) and (max-width: 1023px) {
+  @include mq('tablet', 'desktop') {
     gap: 1.5rem; //24px;
   }
 
-  .topic-button {
+  .topic-link {
     .topic-text {
       font: $TextPreset-4-m;
     }
   }
-
 }
-
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Intro
@@ -197,27 +209,26 @@ body {
   .quiz-question {
     font: $TextPreset-3-m;
   }
-
 }
 
 .quiz-form {
-  .question-list {
+  .answer-options {
     gap: 1rem;
 
     //태블릿 구간 (예: 768px ~ 1023px)
-    @media (min-width: 768px) and (max-width: 1023px) {
+    @include mq('tablet', 'desktop') {
       gap: 1.5rem; //24px;
     }
   }
 
-  .quiz-answer {
+  .quiz-submit {
     border: 1px solid transparent;
     inline-size: 100%;
     color: $White;
 
     //피그마에서는 위에서부터 아래로 레이어가 쌓이므로 번역하면 다음과 같다.
-    //1층 (위 레이어): 흰색(FFFFFF)에 투명도 50% 
-    background-image: linear-gradient(#FFFFFF80, #FFFFFF80);
+    //1층 (위 레이어): 흰색(FFFFFF)에 투명도 50%
+    background-image: linear-gradient(#ffffff80, #ffffff80);
     //2층: 바탕에 깔리는 기본 보라색
     background-color: $Purple-600;
 
@@ -230,9 +241,32 @@ body {
     &.active {
       color: $White;
       background-color: $Purple-600;
+      background-image: none;
     }
+
+    cursor: pointer;
   }
 
+  .error-message{
+    text-align: center;
+    font: $TextPreset-5-r;
+    color: $Red-500;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+
+    > svg {
+      width: clamp(2rem, calc(1.523rem + 2.036vw), 2.5rem);
+      height: auto;
+      aspect-ratio: 1;
+    }
+
+    &.show {      
+      opacity: 1;
+      visibility: visible;
+    }
+  }
 }
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -284,6 +318,8 @@ body {
     font: $TextPreset-4-m;
     padding: clamp(1rem, calc(0.046rem + 4.071vw), 2rem);
     border-radius: clamp(0.75rem, calc(0.034rem + 3.053vw), 1.5rem);
+
+    cursor: pointer;
   }
 }
 
@@ -295,4 +331,15 @@ body {
       font: $TextPreset-2-m;
     }
   }
+}
+
+
+.attribution {
+  margin-block-start: 0.625rem;
+  font-size: 0.6875rem;
+  text-align: center;
+}
+
+.attribution a {
+  color: hsl(228, 45%, 44%);
 }

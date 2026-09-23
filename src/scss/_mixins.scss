@@ -18,16 +18,31 @@
   background: linear-gradient($direction, $start-color, $end-color);
 }
 
-@mixin mq($device) {
-  // 맵에 해당 기기 이름이 있는지 확인
-  @if map.has-key(v.$breakpoints, $device) {
-    // 🌟 min-width 기준으로 미디어 쿼리 자동 생성
-    @media (min-width: map.get(v.$breakpoints, $device)) {
+// mq('tablet'): 태블릿 이상, mq('tablet', 'desktop'): 768px ~ 1023px
+@mixin mq($device, $until: null) {
+  @if not map.has-key(v.$breakpoints, $device) {
+    @error '브레이크포인트 "#{$device}"가 존재하지 않습니다.';
+  }
+
+  $min-width: map.get(v.$breakpoints, $device);
+
+  @if $until == null {
+    @media (min-width: $min-width) {
       @content;
-      // 믹스인을 호출할 때 전달한 스타일이 여기에 쏙 들어갑니다
     }
   } @else {
-    @error '브레이크포인트 "#{$device}"가 존재하지 않습니다.';
+    @if not map.has-key(v.$breakpoints, $until) {
+      @error '브레이크포인트 "#{$until}"가 존재하지 않습니다.';
+    }
+
+    $max-width: map.get(v.$breakpoints, $until) - 1px;
+    @if $max-width < $min-width {
+      @error '종료 브레이크포인트는 시작 브레이크포인트보다 커야 합니다.';
+    }
+
+    @media (min-width: $min-width) and (max-width: $max-width) {
+      @content;
+    }
   }
 }
 

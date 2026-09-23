@@ -1,26 +1,38 @@
 @use 'variables'as *;
 
-.question-button.box,
-.topic-button.box {
+.answer-option,
+.topic-button {
   inline-size: 100%;
   // max-inline-size: 327px;
-  border-radius: clamp(0.750rem, calc(0.214rem + 2.679vw), 1.500rem);
+  border-radius: clamp(0.75rem, calc(0.214rem + 2.679vw), 1.5rem);
   font: $TextPreset-4-m;
   padding: clamp(1rem, calc(0.711rem + 1.233vw), 1.5rem);
   background-color: $White;
   box-shadow: 10px 20px 30px rgba(0, 0, 0, 0.08);
 
-  //데스크탑은 640에서 564로 줄어든다.
-  // @media (min-width: 1024px) {
-  //   max-inline-size: 35.25rem;
-  // }
+  border: 0.1875rem solid transparent;
 
+  &:focus-visible {
+    outline: 2px solid $Blue-500;
+    outline-offset: 4px;
+  }
+
+  // 사용자 편의성을 위해
+  cursor: pointer;
 }
 
-.question-button {
+.answer-option {
+  display: flex;
+  gap: clamp(1rem, calc(0.046rem + 4.071vw), 2rem);
+  align-items: center;
   position: relative;
 
+  [class^='answer'] {
+    text-align: left;
+  }
+
   &::before {
+    flex-shrink: 0;
     content: attr(data-text);
     width: clamp(2.5rem, calc(1.546rem + 4.071vw), 3.5rem);
     height: clamp(2.5rem, calc(1.546rem + 4.071vw), 3.5rem);
@@ -28,6 +40,26 @@
     line-height: clamp(2.5rem, calc(1.546rem + 4.071vw), 3.5rem);
     color: $Grey-500;
     background-color: $Grey-50;
+    text-align: center;
+  }
+
+  .answer-option__text {
+    flex-grow: 0;
+  }
+
+
+  &:has(input[name=answer]:checked:not(:disabled)) {
+    border: 0.1875rem solid $Purple-600;
+
+    &::before {
+      color: #fff;
+      background-color: $Purple-600;
+    }
+  }
+
+  &:has(input:focus-visible) {
+    outline: 2px solid $Blue-500;
+    outline-offset: 4px;
   }
 
   &--purple {
@@ -48,6 +80,7 @@
     }
 
     &::after {
+      flex-shrink: 0;
       content: '';
       // 오른쪽 끝에 붙인다.
       margin-inline-start: auto;
@@ -58,7 +91,7 @@
   }
 
   &--red {
-    border: 3px solid $Red-500;
+    border: 0.1875rem solid $Red-500;
 
     &::before {
       color: #fff;
@@ -66,6 +99,7 @@
     }
 
     &::after {
+      flex-shrink: 0;
       content: '';
       // 오른쪽 끝에 붙인다.
       margin-inline-start: auto;

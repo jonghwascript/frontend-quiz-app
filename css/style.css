@@ -71,6 +71,19 @@ h4 {
   max-width: 60ch;
 }
 
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+legend {
+  padding: 0;
+  display: block;
+  width: 100%;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -492,20 +505,42 @@ h4 {
   background-image: url(../images/icon-accessibility.svg);
 }
 
-.question-button.box,
-.topic-button.box {
+.answer-option,
+.topic-link {
   inline-size: 100%;
   border-radius: clamp(0.75rem, 0.214rem + 2.679vw, 1.5rem);
   font: normal 500 clamp(1.125rem, 0.529rem + 2.545vw, 1.75rem)/1 Rubik, sans-serif;
   padding: clamp(1rem, 0.711rem + 1.233vw, 1.5rem);
   background-color: #ffffff;
   box-shadow: 10px 20px 30px rgba(0, 0, 0, 0.08);
+  border: 0.1875rem solid transparent;
+}
+.answer-option:focus-visible,
+.topic-link:focus-visible {
+  outline: 2px solid #306aff;
+  outline-offset: 4px;
+}
+.answer-option,
+.topic-link {
+  cursor: pointer;
 }
 
-.question-button {
+.topic-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.answer-option {
+  display: flex;
+  gap: clamp(1rem, 0.046rem + 4.071vw, 2rem);
+  align-items: center;
   position: relative;
 }
-.question-button::before {
+.answer-option [class^=answer] {
+  text-align: left;
+}
+.answer-option::before {
+  flex-shrink: 0;
   content: attr(data-text);
   width: clamp(2.5rem, 1.546rem + 4.071vw, 3.5rem);
   height: clamp(2.5rem, 1.546rem + 4.071vw, 3.5rem);
@@ -513,36 +548,53 @@ h4 {
   line-height: clamp(2.5rem, 1.546rem + 4.071vw, 3.5rem);
   color: #626c7f;
   background-color: #f4f6fa;
+  text-align: center;
 }
-.question-button--purple {
+.answer-option .answer-option__text {
+  flex-grow: 0;
+}
+.answer-option:has(input[name=answer]:checked:not(:disabled)) {
   border: 0.1875rem solid #a729f5;
 }
-.question-button--purple::before {
+.answer-option:has(input[name=answer]:checked:not(:disabled))::before {
   color: #fff;
   background-color: #a729f5;
 }
-.question-button--green {
+.answer-option:has(input:focus-visible) {
+  outline: 2px solid #306aff;
+  outline-offset: 4px;
+}
+.answer-option--purple {
+  border: 0.1875rem solid #a729f5;
+}
+.answer-option--purple::before {
+  color: #fff;
+  background-color: #a729f5;
+}
+.answer-option--green {
   border: 0.1875rem solid #2fd887;
 }
-.question-button--green::before {
+.answer-option--green::before {
   color: #fff;
   background-color: #2fd887;
 }
-.question-button--green::after {
+.answer-option--green::after {
+  flex-shrink: 0;
   content: "";
   margin-inline-start: auto;
   width: 2.5rem;
   height: 2.5rem;
   background-image: url(../images/icon-correct.svg);
 }
-.question-button--red {
-  border: 3px solid #ee5454;
+.answer-option--red {
+  border: 0.1875rem solid #ee5454;
 }
-.question-button--red::before {
+.answer-option--red::before {
   color: #fff;
   background-color: #ee5454;
 }
-.question-button--red::after {
+.answer-option--red::after {
+  flex-shrink: 0;
   content: "";
   margin-inline-start: auto;
   width: 2.5rem;
@@ -550,21 +602,18 @@ h4 {
   background-image: url(../images/icon-incorrect.svg);
 }
 @container style(--theme:dark) {
-  .question-button {
+  .answer-option {
     color: #fff;
     background-color: #3b4d66;
   }
 }
 
-/* 최상위 요소 하나로 완벽하게 통합 (html 또는 :root 중 하나만 씁니다) */
 html {
   font-size: 100%;
   --theme: light;
-  /* 1. 기본 모드 (Light & Mobile) 변수 */
   --color-bg: #f4f6fa;
   --color-text: #313e51;
   --bg-image: url(../images/pattern-background-mobile-light.svg);
-  /* 2. 라이트 모드 상태에서의 반응형 이미지 교체 */
 }
 @media (min-width: 768px) {
   html {
@@ -576,18 +625,11 @@ html {
     --bg-image: url(../images/pattern-background-desktop-light.svg);
   }
 }
-html {
-  /* ---------------------------------------------------
-     3. 다크 모드 (Dark) 변수 덮어쓰기
-  --------------------------------------------------- */
-}
 html[data-theme=dark] {
   --theme: dark;
   --color-bg: #313e51;
   --color-text: #ffffff;
-  /* 다크 모드 - 모바일 이미지 */
   --bg-image: url(../images/pattern-background-mobile-dark.svg);
-  /* 다크 모드 상태에서의 반응형 이미지 교체 */
 }
 @media (min-width: 768px) {
   html[data-theme=dark] {
@@ -600,12 +642,9 @@ html[data-theme=dark] {
   }
 }
 
-/* 4. body는 변수만 가져다 쓰면 끝! */
 body {
   font-family: "Rubik", system-ui, -apple-system, sans-serif;
   color: var(--color-text);
-  /* 글자색도 변수로 연동 */
-  /* 배경색과 배경 이미지를 한 줄로 깔끔하게 */
   background: var(--color-bg) var(--bg-image) no-repeat;
   background-size: cover;
   background-position: top center;
@@ -622,8 +661,13 @@ body {
 .quiz-app > .center {
   box-sizing: border-box;
   inline-size: 100%;
-  max-inline-size: 90rem;
+  max-inline-size: 1157px;
   padding-inline: clamp(1.5rem, -0.885rem + 10.178vw, 4rem);
+}
+@media (min-width: 1024px) {
+  .quiz-app > .center {
+    padding-inline: 0;
+  }
 }
 .quiz-app > .center > .stack {
   gap: clamp(2rem, 0.477rem + 7.614vw, 6.188rem);
@@ -660,7 +704,13 @@ body {
 }
 
 #main {
-  gap: clamp(2.5rem, 1.159rem + 6.705vw, 8rem);
+  gap: clamp(2.5rem, -0.137rem + 11.253vw, 8rem);
+}
+#main .left {
+  flex-grow: 465;
+}
+#main .right {
+  flex-grow: 564;
 }
 
 .quiz-intro {
@@ -680,7 +730,7 @@ body {
     gap: 1.5rem;
   }
 }
-.topic-list .topic-button .topic-text {
+.topic-list .topic-link .topic-text {
   font: normal 500 clamp(1.125rem, 0.529rem + 2.545vw, 1.75rem)/1 Rubik, sans-serif;
 }
 
@@ -709,15 +759,15 @@ body {
   font: normal 500 clamp(1.25rem, 0.296rem + 4.071vw, 2.25rem)/1.2 Rubik, sans-serif;
 }
 
-.quiz-form .question-list {
+.quiz-form .answer-options {
   gap: 1rem;
 }
 @media (min-width: 768px) and (max-width: 1023px) {
-  .quiz-form .question-list {
+  .quiz-form .answer-options {
     gap: 1.5rem;
   }
 }
-.quiz-form .quiz-answer {
+.quiz-form .quiz-submit {
   border: 1px solid transparent;
   inline-size: 100%;
   color: #ffffff;
@@ -728,9 +778,30 @@ body {
   padding: clamp(1rem, 0.046rem + 4.071vw, 2rem);
   border-radius: clamp(0.75rem, 0.034rem + 3.053vw, 1.5rem);
 }
-.quiz-form .quiz-answer.active {
+.quiz-form .quiz-submit.active {
   color: #ffffff;
   background-color: #a729f5;
+  background-image: none;
+}
+.quiz-form .quiz-submit {
+  cursor: pointer;
+}
+.quiz-form .error-message {
+  text-align: center;
+  font: normal 400 clamp(1.125rem, 0.767rem + 1.527vw, 1.5rem)/1.5 Rubik, sans-serif;
+  color: #ee5454;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+}
+.quiz-form .error-message > svg {
+  width: clamp(2rem, 1.523rem + 2.036vw, 2.5rem);
+  height: auto;
+  aspect-ratio: 1;
+}
+.quiz-form .error-message.show {
+  opacity: 1;
+  visibility: visible;
 }
 
 .question-result {
@@ -770,6 +841,7 @@ body {
   font: normal 500 clamp(1.125rem, 0.529rem + 2.545vw, 1.75rem)/1 Rubik, sans-serif;
   padding: clamp(1rem, 0.046rem + 4.071vw, 2rem);
   border-radius: clamp(0.75rem, 0.034rem + 3.053vw, 1.5rem);
+  cursor: pointer;
 }
 
 .quiz-score .quiz-scored {
@@ -777,5 +849,15 @@ body {
 }
 .quiz-score .quiz-scored strong {
   font: normal 500 clamp(2.5rem, 1.069rem + 6.107vw, 4rem)/1 Rubik, sans-serif;
+}
+
+.attribution {
+  margin-block-start: 0.625rem;
+  font-size: 0.6875rem;
+  text-align: center;
+}
+
+.attribution a {
+  color: hsl(228, 45%, 44%);
 }
 /*# sourceMappingURL=style.css.map */

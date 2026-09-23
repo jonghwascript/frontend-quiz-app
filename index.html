@@ -53,7 +53,7 @@
 </header>
         <main id="main" class="switcher" style="--threshold:48rem;">
           <!-- 퀴즈 안내와 과목 선택 -->
-          <div class="quiz-intro stack">
+          <div class="quiz-intro left stack">
             <h1 class="quiz-title">
               Welcome to the <strong>Frontend Quiz!</strong>
             </h1>
@@ -61,36 +61,42 @@
               Pick a subject to get started.
             </p>
           </div>
-          <ul class="topic-list stack">
+          <ul class="topic-list right stack">
             <li>
-              <button class="cluster box topic-button" style="--padding: 16px;" data-justify="start">
-                <span class="topic-icon topic-icon--html"></span>
+              <a href="./question.html?topic=HTML" class="cluster topic-link" data-justify="start">
+                <span class="topic-icon topic-icon--html" aria-hidden="true"></span>
                 <span class="topic-text">HTML</span>
-              </button>
+              </a>
             </li>
             <li>
-              <button class="cluster box topic-button" style="--padding: 16px;" data-justify="start">
-                <span class="topic-icon topic-icon--css"></span>
+              <a href="./question.html?topic=CSS" class="cluster topic-link" data-justify="start">
+                <span class="topic-icon topic-icon--css" aria-hidden="true"></span>
                 <span class="topic-text">CSS</span>
-              </button>
+              </a>
             </li>
             <li>
-              <button class="cluster box topic-button" style="--padding: 16px;" data-justify="start">
-                <span class="topic-icon topic-icon--js"></span>
+              <a href="./question.html?topic=JavaScript" class="cluster topic-link" data-justify="start">
+                <span class="topic-icon topic-icon--js" aria-hidden="true"></span>
                 <span class="topic-text">JavaScript</span>
-              </button>
+              </a>
             </li>
             <li>
-              <button class="cluster box topic-button" style="--padding: 16px;" data-justify="start">
-                <span class="topic-icon topic-icon--accessibility"></span>
+              <a href="./question.html?topic=Accessibility" class="cluster topic-link" data-justify="start">
+                <span class="topic-icon topic-icon--accessibility" aria-hidden="true"></span>
                 <span class="topic-text">Accessibility</span>
-              </button>
+              </a>
             </li>
           </ul>
         </main>
+        <footer class="attribution">
+          Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
+          Coded by <a href="https://www.frontendmentor.io/profile/jonghwascript">jonghwascript</a>.
+        </footer>
       </div>
     </div>
   </div>
+  <script src="./js/lib/jquery-4.0.0.min.js"></script>
+  <script src="./js/main.js"></script>
 </body>
 
 </html>

@@ -26,49 +26,58 @@
             <div class="stack outer">
               <div class="stack inner">
                 <p class="quiz-counter">
-                  Question 6 of 10
+                  Question 1 of 10
                 </p>
                 <h1 class="quiz-question">
                   Which of these color contrast ratios defines the minimum WCAG 2.1 Level AA requirement for normal
                   text?
                 </h1>
               </div>
-              <!-- <div role="progressbar" class="quiz-progress" aria-label="Quiz progress">========</div> -->
-              <progress class="quiz-progress" max="100" value="70">70%</progress>
+              <progress class="quiz-progress" max="10" value="1" aria-label="Current question">1 of 10</progress>
             </div>
           </div>
           <form class="quiz-form stack">
-            <ul class="question-list stack">
-              <li>
-                <button class="cluster box question-button" style="--padding: 16px;" data-justify="start" data-text="A">
-                  <span>4.5 : 1</span>
-                </button>
-              </li>
-              <li>
-                <button class="cluster box question-button question-button--purple" style="--padding: 16px;"
-                  data-justify="start" data-text="A">
-                  <span>4.5 : 1</span>
-                </button>
-              </li>
-              <li>
-                <button class="cluster box question-button question-button--green" style="--padding: 16px;"
-                  data-justify="start" data-text="A">
-                  <span>4.5 : 1</span>
-                </button>
-              </li>
-              <li>
-                <button class="cluster box question-button question-button--red" style="--padding: 16px;"
-                  data-justify="start" data-text="A">
-                  <span>4.5 : 1</span>
-                </button>
-              </li>
-            </ul>
-            <button type="submit" class="quiz-answer">Submit Answer</button>
+            <fieldset class="answer-options stack">
+              <legend class="sr-only">Select the correct answer.</legend>
+              <label class="answer-option">
+                <input type="radio" class="answer-option__input sr-only" name="answer" value="A">
+                <span class="answer-option__text">보기 1</span>
+              </label>
+              <label class="answer-option">
+                <input type="radio" class="answer-option__input sr-only" name="answer" value="B">
+                <span class="answer-option__text">보기 1</span>
+              </label>
+              <label class="answer-option">
+                <input type="radio" class="answer-option__input sr-only" name="answer" value="C">
+                <span class="answer-option__text">보기 1</span>
+              </label>
+              <label class="answer-option">
+                <input type="radio" class="answer-option__input sr-only" name="answer" value="D">
+                <span class="answer-option__text">보기 1</span>
+              </label>
+            </fieldset>
+            <p class="quiz-feedback sr-only" role="status"></p>
+            <button type="submit" class="quiz-submit active" disabled>Submit Answer</button>
+            <p id="quiz-error-announcement" class="sr-only" role="alert" aria-atomic="true"></p>
+            <div class="cluster error-message" style="--space:8px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 40 40">
+                <path fill="#EE5454"
+                  d="M20 5a15 15 0 1 1 0 30 15 15 0 0 1 0-30Zm0 2.5a12.5 12.5 0 1 0 0 25 12.5 12.5 0 0 0 0-25Zm-5.402 7.415.142-.175a1.25 1.25 0 0 1 1.595-.143l.175.143L20 18.233l3.49-3.493a1.25 1.25 0 0 1 1.595-.143l.175.143a1.25 1.25 0 0 1 .142 1.595l-.142.175L21.767 20l3.493 3.49a1.25 1.25 0 0 1 .142 1.595l-.142.175a1.25 1.25 0 0 1-1.595.142l-.175-.142L20 21.767l-3.49 3.493a1.25 1.25 0 0 1-1.595.142l-.175-.142a1.25 1.25 0 0 1-.143-1.595l.143-.175L18.233 20l-3.493-3.49a1.25 1.25 0 0 1-.143-1.595Z"
+                  aria-hidden="true" />
+              </svg>
+              <span id="quiz-error-text">Please select an answer</span>
+            </div>
           </form>
         </main>
+                <footer class="attribution">
+          Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
+          Coded by <a href="https://www.frontendmentor.io/profile/jonghwascript">jonghwascript</a>.
+        </footer>
       </div>
     </div>
   </div>
+  <script src="./js/lib/jquery-4.0.0.min.js"></script>
+  <script src="./js/main.js"></script>
 </body>
 
 </html>
