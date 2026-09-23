@@ -378,6 +378,29 @@ font: $TextPreset-4-m;
 border-radius: clamp(0.75rem, calc(0.034rem + 3.053vw), 1.5rem);
 ```
 
+#### Fix the invisible progress fill caused by double padding
+
+The progress element had a height of `16px` with `border-box` sizing and `4px` of padding on every side. Its `::-webkit-progress-bar` also had `4px` of padding. Together, the two vertical padding layers consumed the available height, leaving the purple fill with no visible height in Chrome.
+
+The fix keeps padding on the progress element only. The internal track inherits its background color so that it follows both the light and dark themes:
+
+```css
+.quiz-progress {
+  box-sizing: border-box;
+  height: 16px;
+  padding: 4px;
+}
+
+.quiz-progress::-webkit-progress-bar {
+  background-color: inherit;
+  border-radius: 104px;
+}
+```
+
+This leaves `8px` of vertical space for the fill. The existing question-position updates did not need to change. The issue was reproduced in a standalone Chrome test using the generated stylesheet, then the corrected fill was visually checked at 10%, 50%, and 100% in both themes. The Sass build and Git whitespace checks also passed. Firefox and Safari were not tested in this check.
+
+The lesson was to inspect the combined box model of a native control and its internal pseudo-elements when valid progress values do not produce a visible bar.
+
 #### Verify the initial disabled state before changing it
 
 A review also questioned the submit button's initial `disabled` attribute. Checking its initialization flow confirmed that the button becomes enabled when a question is rendered, both after loading data and after restoring progress. The initial attribute was retained because it prevents submission before initialization. Once ready, an unanswered submission can still trigger the existing missing-answer feedback.

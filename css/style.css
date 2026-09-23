@@ -174,10 +174,8 @@ legend {
   /* Webkit 전체 트랙(배경) */
 }
 .quiz-progress::-webkit-progress-bar {
-  background-color: #ffffff;
+  background-color: inherit;
   border-radius: 104px;
-  /* Frontend Mentor 시안에 주로 있는 안쪽 여백(padding)이 필요하다면 여기에 추가 */
-  padding: 4px;
 }
 .quiz-progress {
   /* Webkit 채워진 부분 (게이지) */
