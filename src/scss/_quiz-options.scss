@@ -3,7 +3,6 @@
 .answer-option,
 .topic-link {
   inline-size: 100%;
-  // max-inline-size: 327px;
   border-radius: clamp(0.75rem, calc(0.214rem + 2.679vw), 1.5rem);
   font: $TextPreset-4-m;
   padding: clamp(1rem, calc(0.711rem + 1.233vw), 1.5rem);

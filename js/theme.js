@@ -1,4 +1,4 @@
-// 헤더의 테마 스위치와 해/달 버튼을 window.quizTheme(=partials/theme-init.html)에 연결합니다.
+// 헤더의 테마 스위치와 해/달 버튼을 window.quizTheme(=js/theme-init.js)에 연결합니다.
 $(function () {
   var theme = window.quizTheme;
   if (!theme) return;

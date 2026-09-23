@@ -197,6 +197,10 @@ legend {
   border-radius: 104px;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 .stack {
   --space: 1.5rem;
   display: flex;
@@ -707,14 +711,20 @@ body {
 .quiz-header .theme-control .light-button,
 .quiz-header .theme-control .dark-button {
   border: 0;
-  background-color: var(--color-bg);
+  background-color: transparent;
+  cursor: pointer;
+}
+.quiz-header .theme-control .light-button[aria-pressed=true],
+.quiz-header .theme-control .dark-button[aria-pressed=true] {
+  cursor: default;
 }
 .quiz-header .theme-control .light-button svg,
 .quiz-header .theme-control .dark-button svg {
   width: clamp(1rem, 0.523rem + 2.036vw, 1.5rem);
   height: auto;
   aspect-ratio: 1;
-  background-color: var(--color-bg);
+  background-color: transparent;
+  cursor: inherit;
 }
 @container style(--theme : dark) {
   .quiz-header .theme-control .light-button svg path,

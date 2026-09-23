@@ -1,15 +1,9 @@
 <!doctype html>
 <html lang="en" data-theme="dark">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="./css/style.css" />
-
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png" />
-  <title>Frontend Mentor | Frontend quiz app</title>
-  @@include('../partials/theme-init.html')
-</head>
+@@include('../partials/head.html', {
+  "title": "Frontend Mentor | Frontend quiz app"
+})
 
 <body>
   <div class="quiz-app cover">
@@ -58,16 +52,11 @@
             </li>
           </ul>
         </main>
-        <footer class="attribution">
-          Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
-          Coded by <a href="https://www.frontendmentor.io/profile/jonghwascript">jonghwascript</a>.
-        </footer>
+        @@include('../partials/footer.html')
       </div>
     </div>
   </div>
-  <script src="./js/lib/jquery-4.0.0.min.js"></script>
-  <script src="./js/theme.js"></script>
-  <script src="./js/main.js"></script>
+  @@include('../partials/scripts.html')
 </body>
 
 </html>

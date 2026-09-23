@@ -1,7 +1,7 @@
 @use 'fonts' as *;
 @use 'reset' as *;
 @use 'variables' as *;
-@use 'mixins' as *; // _mixins.scss 파일이 같은 폴더에 있는 경우
+@use 'mixins' as *; 
 @use 'utilities' as *;
 @use 'layout' as *;
 @use 'icon' as *;
@@ -116,13 +116,20 @@ body {
     .light-button,
     .dark-button {
       border: 0;
-      background-color: var(--color-bg);
+      background-color: transparent;
+      cursor: pointer;
+
+      // 현재 선택된 모드의 버튼(light 모드의 해 아이콘, dark 모드의 달 아이콘)에는 기본 커서를 적용
+      &[aria-pressed='true'] {
+        cursor: default;
+      }
 
       svg {
         width: clamp(1rem, calc(0.523rem + 2.036vw), 1.5rem);
         height: auto;
         aspect-ratio: 1;
-        background-color: var(--color-bg);
+        background-color: transparent;
+        cursor: inherit;
 
         @container style(--theme : dark) {
           path {

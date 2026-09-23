@@ -7,62 +7,12 @@
   <link rel="stylesheet" href="./css/style.css" />
 
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png" />
-  <title>Frontend Mentor | Frontend quiz app</title>
+  <title>Question | Frontend quiz app</title>
   <!-- 저장된 테마를 그리기 전에 적용해 페이지 이동 시 깜빡임을 막습니다. -->
-<script>
-  (function () {
-    var KEY = 'frontend-quiz-theme';
-    var root = document.documentElement;
-
-    function read() {
-      try {
-        var saved = localStorage.getItem(KEY);
-        return saved === 'light' || saved === 'dark' ? saved : null;
-      } catch (error) {
-        // 브라우저가 저장소를 막아둔 경우에도 페이지는 동작해야 합니다.
-        return null;
-      }
-    }
-
-    function save(theme) {
-      try {
-        localStorage.setItem(KEY, theme);
-      } catch (error) {
-        /* 저장만 실패하고 현재 페이지 전환은 그대로 진행합니다. */
-      }
-    }
-
-    function systemTheme() {
-      return window.matchMedia &&
-        window.matchMedia('(prefers-color-scheme: light)').matches
-        ? 'light'
-        : 'dark';
-    }
-
-    function apply(theme) {
-      root.setAttribute('data-theme', theme);
-    }
-
-    window.quizTheme = {
-      key: KEY,
-      read: read,
-      current: function () {
-        return root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
-      },
-      set: function (theme) {
-        var next = theme === 'light' ? 'light' : 'dark';
-        apply(next);
-        save(next);
-        return next;
-      },
-    };
-
-    // 저장된 값이 없으면 운영체제 설정을 따릅니다.
-    apply(read() || systemTheme());
-  })();
-</script>
+<script src="./js/theme-init.js"></script>
 
 </head>
+
 
 <body>
   <div class="quiz-app cover">
@@ -75,10 +25,10 @@
     <!-- 현재 퀴즈 주제 -->
     
       <span
-        class="topic-icon topic-icon--html"
+        class="topic-icon topic-icon--"
         aria-hidden="true"
       ></span>
-      <span>HTML</span>
+      <span></span>
     
   </div>
   <div class="theme-control cluster">
@@ -111,40 +61,40 @@
     </button>
   </div>
 </header>
-        <main id="main" class="switcher" style="--threshold:48rem;">
+        <main aria-busy="true" id="main" class="switcher" style="--threshold:48rem;">
           <!-- 퀴즈 안내와 과목 선택 -->
-          <div class="quiz-question stack">
+          <div class="quiz-loading stack">
+            <p class="quiz-load-message" role="status">Loading questions?</p>
+            <button class="quiz-retry quiz-submit" type="button" hidden>Try Again</button>
+            <a href="./index.html">Back to topics</a>
+          </div>
+          <div class="quiz-question quiz-question-panel stack" hidden>
             <div class="stack outer">
               <div class="stack inner">
-                <p class="quiz-counter">
-                  Question 1 of 10
-                </p>
-                <h1 class="quiz-question">
-                  Which of these color contrast ratios defines the minimum WCAG 2.1 Level AA requirement for normal
-                  text?
-                </h1>
+                <p class="quiz-counter"></p>
+                <h1 class="quiz-question"></h1>
               </div>
-              <progress class="quiz-progress" max="10" value="1" aria-label="Current question">1 of 10</progress>
+              <progress class="quiz-progress" max="10" value="0" aria-label="Current question">0 of 10</progress>
             </div>
           </div>
-          <form class="quiz-form stack">
+          <form class="quiz-form stack" hidden>
             <fieldset class="answer-options stack">
               <legend class="sr-only">Select the correct answer.</legend>
               <label class="answer-option">
                 <input type="radio" class="answer-option__input sr-only" name="answer" value="A">
-                <span class="answer-option__text">보기 1</span>
+                <span class="answer-option__text"></span>
               </label>
               <label class="answer-option">
                 <input type="radio" class="answer-option__input sr-only" name="answer" value="B">
-                <span class="answer-option__text">보기 1</span>
+                <span class="answer-option__text"></span>
               </label>
               <label class="answer-option">
                 <input type="radio" class="answer-option__input sr-only" name="answer" value="C">
-                <span class="answer-option__text">보기 1</span>
+                <span class="answer-option__text"></span>
               </label>
               <label class="answer-option">
                 <input type="radio" class="answer-option__input sr-only" name="answer" value="D">
-                <span class="answer-option__text">보기 1</span>
+                <span class="answer-option__text"></span>
               </label>
             </fieldset>
             <p class="quiz-feedback sr-only" role="status"></p>
@@ -160,16 +110,21 @@
             </div>
           </form>
         </main>
-                <footer class="attribution">
-          Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
-          Coded by <a href="https://www.frontendmentor.io/profile/jonghwascript">jonghwascript</a>.
-        </footer>
+        <p class="storage-notice" role="status"></p>
+        <footer class="attribution">
+  Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
+  Coded by <a href="https://www.frontendmentor.io/profile/jonghwascript">jonghwascript</a>.
+</footer>
+
       </div>
     </div>
   </div>
   <script src="./js/lib/jquery-4.0.0.min.js"></script>
-  <script src="./js/theme.js"></script>
-  <script src="./js/main.js"></script>
+<script src="./js/theme.js"></script>
+
+
+  <script src="./js/quiz-common.js"></script>
+  <script src="./js/question.js"></script>
 </body>
 
 </html>
