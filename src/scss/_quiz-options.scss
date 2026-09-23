@@ -1,4 +1,4 @@
-@use 'variables'as *;
+@use 'variables' as *;
 
 .answer-option,
 .topic-link {
@@ -19,6 +19,10 @@
 
   // 사용자 편의성을 위해
   cursor: pointer;
+
+  @container style(--theme : dark) {
+    background-color: $Blue-850;
+  }
 }
 
 .topic-link {
@@ -52,8 +56,7 @@
     flex-grow: 0;
   }
 
-
-  &:has(input[name=answer]:checked:not(:disabled)) {
+  &:has(input[name='answer']:checked:not(:disabled)) {
     border: 0.1875rem solid $Purple-600;
 
     &::before {

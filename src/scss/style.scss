@@ -1,18 +1,17 @@
-@use 'fonts'as *;
-@use 'reset'as *;
-@use 'variables'as *;
-@use 'mixins'as *; // _mixins.scss 파일이 같은 폴더에 있는 경우
-@use 'utilities'as *;
-@use 'layout'as *;
-@use 'icon'as *;
+@use 'fonts' as *;
+@use 'reset' as *;
+@use 'variables' as *;
+@use 'mixins' as *; // _mixins.scss 파일이 같은 폴더에 있는 경우
+@use 'utilities' as *;
+@use 'layout' as *;
+@use 'icon' as *;
 @use 'quiz-options' as *;
-
 
 html {
   font-size: 100%;
   --theme: light;
 
-  //기본 모드 (Light & Mobile) 변수 
+  //기본 모드 (Light & Mobile) 변수
   --color-bg: #{$Grey-50};
   --color-text: #{$Blue-900};
   --bg-image: url(../images/pattern-background-mobile-light.svg);
@@ -46,7 +45,6 @@ html {
   }
 }
 
-
 body {
   font-family:
     'Rubik',
@@ -72,7 +70,7 @@ body {
   padding-inline: 0;
 }
 
-.quiz-app>.center {
+.quiz-app > .center {
   box-sizing: border-box;
   inline-size: 100%;
   //center에서는 좌우 1.5rem 패딩이 존재한다.
@@ -86,7 +84,7 @@ body {
     padding-inline: 0;
   }
 
-  >.stack {
+  > .stack {
     gap: clamp(2rem, calc(0.477rem + 7.614vw), 6.188rem);
   }
 }
@@ -105,7 +103,6 @@ body {
   }
 
   .theme-control {
-    // gap: clamp(0.5rem, calc(0.318rem + 0.909vw), 1rem);
     gap: clamp(0.5rem, calc(0.023rem + 2.036vw), 1rem);
 
     .toggle-container {
@@ -119,12 +116,19 @@ body {
     .light-button,
     .dark-button {
       border: 0;
-      background-color: $Grey-50;
+      background-color: var(--color-bg);
 
       svg {
         width: clamp(1rem, calc(0.523rem + 2.036vw), 1.5rem);
         height: auto;
         aspect-ratio: 1;
+        background-color: var(--color-bg);
+
+        @container style(--theme : dark) {
+          path {
+            fill: #fff;
+          }
+        }
       }
     }
   }
@@ -187,6 +191,10 @@ body {
   .quiz-pick {
     font: $TextPreset-5-r-italic;
     color: $Grey-500;
+
+    @container style(--theme : dark) {
+      color: $Blue-300;
+    }
   }
 }
 
@@ -194,10 +202,10 @@ body {
 // Question
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 .quiz-question {
-  >.stack {
+  > .stack {
     gap: clamp(1.5rem, calc(-2.136rem + 18.182vw), 11.5rem);
 
-    >.stack {
+    > .stack {
       gap: clamp(1rem, calc(0.818rem + 0.909vw), 1.5rem);
     }
   }
@@ -247,7 +255,7 @@ body {
     cursor: pointer;
   }
 
-  .error-message{
+  .error-message {
     text-align: center;
     font: $TextPreset-5-r;
     color: $Red-500;
@@ -262,7 +270,7 @@ body {
       aspect-ratio: 1;
     }
 
-    &.show {      
+    &.show {
       opacity: 1;
       visibility: visible;
     }
@@ -280,6 +288,10 @@ body {
     padding: clamp(2rem, calc(1.286rem + 3.571vw), 3rem);
     box-shadow: 10px 20px 30px rgba(0, 0, 0, 0.08);
 
+    @container style(--theme : dark) {
+      background-color: $Blue-850;
+    }
+
     .outer.stack {
       gap: clamp(1rem, calc(-0.071rem + 5.357vw), 2.5rem);
 
@@ -287,6 +299,10 @@ body {
         font: $TextPreset-4-m;
         color: $Blue-900;
         gap: clamp(1rem, calc(0.523rem + 2.036vw), 1.5rem); //16px, 24px
+
+        @container style(--theme : dark) {
+          color: $White;
+        }
       }
 
       .inner.stack {
@@ -295,11 +311,19 @@ body {
         .quiz-score {
           font: $TextPreset-1-m;
           color: $Blue-900;
+
+          @container style(--theme : dark) {
+            color: $White;
+          }
         }
 
         .quiz-counter {
           font: $TextPreset-4-m;
           color: $Grey-500;
+
+          @container style(--theme : dark) {
+            color: $Blue-300;
+          }
         }
       }
     }
@@ -332,7 +356,6 @@ body {
     }
   }
 }
-
 
 .attribution {
   margin-block-start: 0.625rem;

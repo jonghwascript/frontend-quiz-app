@@ -29,6 +29,7 @@ function htmlTask() {
     .pipe(gulp.dest('.')); // 완성된 HTML을 프로젝트 루트에 저장
 }
 
+exports.scss = scssTask;
 exports.html = htmlTask;
 
 // Prettier로 코드 포맷팅 (gulp-prettier는 ESM 전용이라 동적 import 필요)

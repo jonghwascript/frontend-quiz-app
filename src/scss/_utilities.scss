@@ -93,6 +93,10 @@
   background-color: #{$White}; /* 빈 배경색 */
   border-radius: 104px; /* 완전 둥글게 */
 
+  @container style(--theme : dark) {
+    background-color: $Blue-850;
+  }
+
   padding: 4px;
   /* ------------------------------------------------
      🍎 크롬, 사파리, 엣지 (Webkit) 전용 스타일

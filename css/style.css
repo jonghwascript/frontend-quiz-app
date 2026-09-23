@@ -160,6 +160,13 @@ legend {
   /* 3. 파이어폭스(Firefox)를 위한 트랙(배경) 색상 및 둥근 모서리 */
   background-color: #ffffff; /* 빈 배경색 */
   border-radius: 104px; /* 완전 둥글게 */
+}
+@container style(--theme : dark) {
+  .quiz-progress {
+    background-color: #3b4d66;
+  }
+}
+.quiz-progress {
   padding: 4px;
   /* ------------------------------------------------
      🍎 크롬, 사파리, 엣지 (Webkit) 전용 스타일
@@ -524,6 +531,12 @@ legend {
 .topic-link {
   cursor: pointer;
 }
+@container style(--theme : dark) {
+  .answer-option,
+  .topic-link {
+    background-color: #3b4d66;
+  }
+}
 
 .topic-link {
   color: inherit;
@@ -694,13 +707,20 @@ body {
 .quiz-header .theme-control .light-button,
 .quiz-header .theme-control .dark-button {
   border: 0;
-  background-color: #f4f6fa;
+  background-color: var(--color-bg);
 }
 .quiz-header .theme-control .light-button svg,
 .quiz-header .theme-control .dark-button svg {
   width: clamp(1rem, 0.523rem + 2.036vw, 1.5rem);
   height: auto;
   aspect-ratio: 1;
+  background-color: var(--color-bg);
+}
+@container style(--theme : dark) {
+  .quiz-header .theme-control .light-button svg path,
+  .quiz-header .theme-control .dark-button svg path {
+    fill: #fff;
+  }
 }
 
 #main {
@@ -744,6 +764,11 @@ body {
 .quiz-intro .quiz-pick {
   font: italic 400 clamp(0.875rem, 0.517rem + 1.527vw, 1.25rem)/1.5 Rubik, sans-serif;
   color: #626c7f;
+}
+@container style(--theme : dark) {
+  .quiz-intro .quiz-pick {
+    color: #abc1e1;
+  }
 }
 
 .quiz-question > .stack {
@@ -812,6 +837,11 @@ body {
   padding: clamp(2rem, 1.286rem + 3.571vw, 3rem);
   box-shadow: 10px 20px 30px rgba(0, 0, 0, 0.08);
 }
+@container style(--theme : dark) {
+  .question-result .output.box {
+    background-color: #3b4d66;
+  }
+}
 .question-result .output.box .outer.stack {
   gap: clamp(1rem, -0.071rem + 5.357vw, 2.5rem);
 }
@@ -820,6 +850,11 @@ body {
   color: #313e51;
   gap: clamp(1rem, 0.523rem + 2.036vw, 1.5rem);
 }
+@container style(--theme : dark) {
+  .question-result .output.box .outer.stack .current-topic {
+    color: #ffffff;
+  }
+}
 .question-result .output.box .outer.stack .inner.stack {
   text-align: center;
 }
@@ -827,9 +862,19 @@ body {
   font: normal 500 clamp(5.5rem, 2.16rem + 14.249vw, 9rem)/1 Rubik, sans-serif;
   color: #313e51;
 }
+@container style(--theme : dark) {
+  .question-result .output.box .outer.stack .inner.stack .quiz-score {
+    color: #ffffff;
+  }
+}
 .question-result .output.box .outer.stack .inner.stack .quiz-counter {
   font: normal 500 clamp(1.125rem, 0.529rem + 2.545vw, 1.75rem)/1 Rubik, sans-serif;
   color: #626c7f;
+}
+@container style(--theme : dark) {
+  .question-result .output.box .outer.stack .inner.stack .quiz-counter {
+    color: #abc1e1;
+  }
 }
 .question-result .again-button {
   border: 1px solid transparent;
