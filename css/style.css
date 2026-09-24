@@ -47,7 +47,6 @@ body {
   line-height: var(--ratio);
   color: #222;
   background-color: #fff;
-  -webkit-font-smoothing: antialiased;
 }
 
 p,
@@ -738,6 +737,7 @@ body {
 }
 
 #main {
+  --threshold: 48rem;
   gap: clamp(2.5rem, -0.137rem + 11.253vw, 8rem);
 }
 #main .left {

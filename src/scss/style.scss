@@ -1,11 +1,11 @@
-@use 'fonts' as *;
-@use 'reset' as *;
-@use 'variables' as *;
-@use 'mixins' as *; 
-@use 'utilities' as *;
-@use 'layout' as *;
-@use 'icon' as *;
-@use 'quiz-options' as *;
+@use 'fonts'as *;
+@use 'reset'as *;
+@use 'variables'as *;
+@use 'mixins'as *;
+@use 'utilities'as *;
+@use 'layout'as *;
+@use 'icon'as *;
+@use 'quiz-options'as *;
 
 html {
   font-size: 100%;
@@ -70,7 +70,7 @@ body {
   padding-inline: 0;
 }
 
-.quiz-app > .center {
+.quiz-app>.center {
   box-sizing: border-box;
   inline-size: 100%;
   // 콘텐츠 최대 너비 1157px에 양쪽 패딩 4rem씩 포함한다.
@@ -79,7 +79,7 @@ body {
   //모바일 24px, 태블릿 64px
   padding-inline: clamp(1.5rem, calc(-0.885rem + 10.178vw), 4rem);
 
-  > .stack {
+  >.stack {
     gap: clamp(2rem, calc(0.477rem + 7.614vw), 6.188rem);
   }
 }
@@ -138,6 +138,7 @@ body {
 
 // 스위처
 #main {
+  --threshold: 48rem;
   // 가로일 땐 좌우 여백, 세로일 땐 위아래 여백으로 작동
   gap: clamp(2.5rem, calc(-0.137rem + 11.253vw), 8rem);
 
@@ -204,10 +205,10 @@ body {
 // Question
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 .quiz-question {
-  > .stack {
+  >.stack {
     gap: clamp(1.5rem, calc(-2.136rem + 18.182vw), 11.5rem);
 
-    > .stack {
+    >.stack {
       gap: clamp(1rem, calc(0.818rem + 0.909vw), 1.5rem);
     }
   }
@@ -265,7 +266,7 @@ body {
     visibility: hidden;
     transition: 0.3s;
 
-    > svg {
+    >svg {
       width: clamp(2rem, calc(1.523rem + 2.036vw), 2.5rem);
       height: auto;
       aspect-ratio: 1;

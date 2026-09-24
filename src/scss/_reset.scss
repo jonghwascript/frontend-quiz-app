@@ -60,9 +60,6 @@ body {
   // 글자색과 배경색의 대비 기본값
   color: #222;
   background-color: #fff;
-
-  // 텍스트 렌더링 최적화
-  -webkit-font-smoothing: antialiased;
 }
 
 // 본문 단락의 줄 길이가 60자를 절대 넘지 않도록 강제 (황금 비율)
