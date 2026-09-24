@@ -13,9 +13,9 @@
  */
 (function () {
   // 로컬 스토리지에 테마 설정을 저장할 고유 키 명칭
-  var KEY = 'frontend-quiz-theme';
+  const KEY = 'frontend-quiz-theme';
   // CSS 테마 속성을 부여할 최상위 <html> 요소
-  var root = document.documentElement;
+  const root = document.documentElement;
 
   /**
    * 로컬 스토리지에서 저장된 테마 값을 읽어오는 함수
@@ -23,7 +23,7 @@
    */
   function read() {
     try {
-      var saved = localStorage.getItem(KEY);
+      const saved = localStorage.getItem(KEY);
       // 저장된 값이 'light' 또는 'dark'인 경우에만 유효값으로 인정
       return saved === 'light' || saved === 'dark' ? saved : null;
     } catch (error) {
@@ -76,7 +76,7 @@
     },
     // 새로운 테마로 변경하고 저장
     set: function (theme) {
-      var next = theme === 'light' ? 'light' : 'dark';
+      const next = theme === 'light' ? 'light' : 'dark';
       apply(next);
       save(next);
       return next;
