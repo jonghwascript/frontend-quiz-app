@@ -1,5 +1,6 @@
 // URL 쿼리스트링(?topic=...)에서 선택된 퀴즈 주제 파라미터 추출
 const selectedTopic = new URLSearchParams(location.search).get('topic');
+const questionData = window.quizQuestionData;
 
 // 퀴즈 애플리케이션 상태(State) 변수 관리
 let quizQuestions = [];     // 이번 퀴즈에서 사용할 전체 문제 목록 (셔플 완료된 배열)
@@ -41,55 +42,12 @@ function showAnswerError() {
 }
 
 /**
- * 단일 문제 객체의 구조적 유효성 검증
- * @param {Object} question - 검증 대상 문제 객체
- * @returns {boolean} 필드 타입 및 정답 포함 여부 만족 시 true
- */
-function validQuestion(question) {
-  return (
-    question &&
-    typeof question.question === 'string' &&
-    Array.isArray(question.options) &&
-    question.options.length === 4 &&
-    question.options.every((option) => typeof option === 'string') &&
-    question.options.includes(question.answer) // 보기에 실제 정답이 포함되어 있는지 확인
-  );
-}
-
-/**
- * 선택된 보기 번호가 0, 1, 2, 3 (A, B, C, D) 정수 범위인지 검증
- * @param {*} choice
- * @returns {boolean}
- */
-function validChoice(choice) {
-  return Number.isInteger(choice) && choice >= 0 && choice < 4;
-}
-
-/**
  * 브라우저 새로고침(F5) 시 스토리지에 저장된 진행 상태 데이터를 검증 및 복원
  * @returns {boolean} 복원 성공 여부
  */
 function restoreProgress() {
-  const saved = readStored(progressKey);
-  
-  // 저장된 데이터의 무결성 정밀 검증 (주제 일치, 문제 수, 인덱스 및 응답 유효성)
-  if (
-    !saved ||
-    saved.topic !== selectedTopic ||
-    !Array.isArray(saved.questions) ||
-    saved.questions.length !== totalQuestions ||
-    !saved.questions.every(validQuestion) ||
-    !Number.isInteger(saved.index) ||
-    saved.index < 0 ||
-    saved.index >= totalQuestions ||
-    !Array.isArray(saved.responses) ||
-    !saved.responses.every(validChoice) ||
-    // 응답 배열 길이는 현재 인덱스와 같거나(풀이 중), 인덱스 + 1(채점 후 다음 문제 이동 전)이어야 함
-    (saved.responses.length !== saved.index &&
-      saved.responses.length !== saved.index + 1) ||
-    (saved.draft !== null && !validChoice(saved.draft))
-  )
-    return false;
+  const saved = questionData.restoreProgress(selectedTopic);
+  if (!saved) return false;
 
   // 상태 변수 복구
   quizQuestions = saved.questions;
@@ -104,8 +62,7 @@ function restoreProgress() {
  */
 function saveProgress() {
   if (
-    !writeStored(progressKey, {
-      topic: selectedTopic,
+    !questionData.saveProgress(selectedTopic, {
       questions: quizQuestions,
       index: questionIndex,
       responses,
@@ -188,48 +145,21 @@ function showLoadError() {
 /**
  * data.json에서 퀴즈 데이터를 비동기로 불러와 셔플 및 초기화
  */
-function loadQuestions() {
+function startQuestionLoad() {
   $('#main').attr('aria-busy', 'true'); // 비동기 작업 로딩 중 표시
   $('.quiz-load-message').text('Loading questions?');
   $('.quiz-retry').prop('disabled', true);
 
-  $.ajax({ url: './data.json', dataType: 'json', timeout: 15000 })
-    .done(function (data) {
-      // 선택된 주제(selectedTopic)와 일치하는 퀴즈 항목 추출
-      const quiz =
-        data && Array.isArray(data.quizzes)
-          ? data.quizzes.find((item) => item && item.title === selectedTopic)
-          : null;
-
-      // 불러온 퀴즈 데이터의 구조 및 최소 문제 수 검증
-      if (
-        !quiz ||
-        !Array.isArray(quiz.questions) ||
-        quiz.questions.length < totalQuestions ||
-        !quiz.questions.every(validQuestion)
-      ) {
-        showLoadError();
-        return;
-      }
-
-      // 피셔-예이츠(Fisher-Yates) 알고리즘으로 문제 배열 무작위 셔플
-      quizQuestions = [...quiz.questions];
-      for (let i = quizQuestions.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [quizQuestions[i], quizQuestions[j]] = [
-          quizQuestions[j],
-          quizQuestions[i],
-        ];
-      }
-
-      // 지정된 문제 수(totalQuestions)만큼 절삭
-      quizQuestions = quizQuestions.slice(0, totalQuestions);
+  questionData
+    .load(selectedTopic)
+    .done(function (questions) {
+      quizQuestions = questions;
       questionIndex = 0;
       responses = [];
       draftAnswer = null;
 
       // 이전 결과 기록 삭제 및 신규 세션 저장
-      removeStored(resultKey);
+      questionData.clearResult();
       saveProgress();
       showReady();
     })
@@ -245,7 +175,7 @@ $('.answer-option__input').on('change', function () {
 });
 
 // 데이터 로드 실패 시 재시도 버튼 클릭 리스너
-$('.quiz-retry').on('click', loadQuestions);
+$('.quiz-retry').on('click', startQuestionLoad);
 
 // 퀴즈 폼 제출(Submit) 이벤트 핸들러
 $('.quiz-form').on('submit', function (event) {
@@ -267,7 +197,7 @@ $('.quiz-form').on('submit', function (event) {
       );
 
       // 결과 저장 실패 처리
-      if (!writeStored(resultKey, { topic: selectedTopic, score })) {
+      if (!questionData.saveResult(selectedTopic, score)) {
         $('.storage-notice').text(
           'Unable to save your result. Your score is ' +
             score +
@@ -279,7 +209,7 @@ $('.quiz-form').on('submit', function (event) {
       }
 
       // 임시 진행 데이터 삭제 후 결과 페이지로 리다이렉트
-      removeStored(progressKey);
+      questionData.clearProgress();
       location.href = './score.html';
       return;
     }
@@ -299,7 +229,7 @@ $('.quiz-form').on('submit', function (event) {
   const selectedIndex = 'ABCD'.indexOf(selectedValue ?? '');
 
   // 보기를 선택하지 않고 제출한 경우 유효성 에러 처리
-  if (!selectedValue || !validChoice(selectedIndex)) {
+  if (!selectedValue || !questionData.isValidChoice(selectedIndex)) {
     showAnswerError();
     return;
   }
@@ -370,5 +300,5 @@ if (!Object.hasOwn(topicKeys, selectedTopic)) {
 } else if (restoreProgress()) {
   showReady();
 } else {
-  loadQuestions();
+  startQuestionLoad();
 }
