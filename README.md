@@ -72,10 +72,14 @@ The markup and styling use:
 | `src/scss/_quiz-options.scss` | Subject links and answer card states |
 | `src/scss/_utilities.scss` | Visually hidden text, theme switch, progress bar, and hidden-state rules |
 | `src/scss/_variables.scss` | Shared colors, typography presets, and breakpoints |
-| `css/style.css` | Generated stylesheet |
-| Root HTML files | Generated pages used by the browser |
+| `js/` | Browser scripts copied into the production build |
+| `images/`, `fonts/`, `data.json` | Static assets copied into the production build |
+| `dist/` | Generated, ignored production site deployed by GitHub Actions |
+| `.github/workflows/deploy-pages.yml` | Build and deployment workflow for GitHub Pages |
 
-Edit the source templates and Sass files instead of the generated HTML and CSS. The build expands HTML includes and compiles Sass. Partials reduce duplication in the source; their markup is still included in each generated page.
+Edit the source templates, Sass, scripts, and static assets rather than files in `dist/`. Run `npm run build` to recreate the production site. The build expands HTML includes, compiles Sass, and copies the runtime files into `dist/`. Partials reduce duplication in the source; their markup is still included in each generated page.
+
+GitHub Pages is deployed through GitHub Actions whenever `main` is updated. The workflow installs the locked dependencies, builds the site, and publishes only `dist/`. In the repository Pages settings, the publishing source must be set to **GitHub Actions**.
 
 ### What I learned
 

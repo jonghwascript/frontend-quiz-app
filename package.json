@@ -4,6 +4,8 @@
   "description": "Reusable Frontend Mentor starter template with SCSS and Gulp.",
   "main": "index.js",
   "scripts": {
+    "build": "gulp build",
+    "dev": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "gulp prettier"
   },
