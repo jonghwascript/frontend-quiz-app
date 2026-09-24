@@ -1,14 +1,14 @@
 // DOM 로드가 완료되면 실행 (jQuery Ready)
 $(function () {
   // 앞서 선언된 테마 관리 전역 객체(window.quizTheme) 참조
-  var theme = window.quizTheme;
+  const theme = window.quizTheme;
   // 테마 관리 모듈이 로드되지 않은 환경이면 실행 중단
   if (!theme) return;
 
   // 제어 대상 DOM 엘리먼트 캐싱
-  var $toggle = $('.theme-control input[name="use-darkmode"]'); // 다크모드 체크박스/스위치
-  var $lightButton = $('.theme-control .light-button');           // 라이트 모드(해) 버튼
-  var $darkButton = $('.theme-control .dark-button');             // 다크 모드(달) 버튼
+  const $toggle = $('.theme-control input[name="use-darkmode"]'); // 다크모드 체크박스/스위치
+  const $lightButton = $('.theme-control .light-button');           // 라이트 모드(해) 버튼
+  const $darkButton = $('.theme-control .dark-button');             // 다크 모드(달) 버튼
 
   /**
    * 테마 모드에 맞춰 화면의 UI 컨트롤 상태(체크 여부 및 ARIA 속성)를 동기화
@@ -51,7 +51,7 @@ $(function () {
 
   // [이벤트 4] 다른 브라우저 탭/창에서 테마를 변경했을 때 발생하는 storage 이벤트 감지
   $(window).on('storage', function (event) {
-    var original = event.originalEvent;
+    const original = event.originalEvent;
 
     // 이벤트 객체가 없거나, 다른 localStorage 키가 변경된 경우 무시
     if (!original || original.key !== theme.key) return;
