@@ -7,14 +7,14 @@ const DIST_DIR = 'dist';
 const PRETTIER_GLOBS = [
   'src/**/*.html',
   'src/scss/**/*.scss',
-  'js/**/*.js',
+  'src/js/**/*.js',
   'gulpfile.js',
 ];
 const STATIC_FILES = [
-  'data.json',
-  'js/**/*',
-  'images/**/*',
-  'fonts/**/*',
+  'src/data.json',
+  'src/js/**/*',
+  'src/images/**/*',
+  'src/fonts/**/*',
 ];
 
 async function cleanTask() {
@@ -45,7 +45,7 @@ function htmlTask() {
 
 function staticTask() {
   return gulp
-    .src(STATIC_FILES, { base: '.', encoding: false })
+    .src(STATIC_FILES, { base: 'src', encoding: false })
     .pipe(gulp.dest(DIST_DIR));
 }
 

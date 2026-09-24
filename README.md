@@ -72,8 +72,8 @@ The markup and styling use:
 | `src/scss/_quiz-options.scss` | Subject links and answer card states |
 | `src/scss/_utilities.scss` | Visually hidden text, theme switch, progress bar, and hidden-state rules |
 | `src/scss/_variables.scss` | Shared colors, typography presets, and breakpoints |
-| `js/` | Browser scripts copied into the production build |
-| `images/`, `fonts/`, `data.json` | Static assets copied into the production build |
+| `src/js/` | Browser scripts copied into the production build |
+| `src/images/`, `src/fonts/`, `src/data.json` | Static assets copied into the production build |
 | `dist/` | Generated, ignored production site deployed by GitHub Actions |
 | `.github/workflows/deploy-pages.yml` | Build and deployment workflow for GitHub Pages |
 
