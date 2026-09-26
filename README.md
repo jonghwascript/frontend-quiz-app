@@ -74,7 +74,7 @@ The markup and styling use:
 | `src/scss/_variables.scss` | Shared colors, typography presets, and breakpoints |
 | `src/js/` | Browser scripts copied into the production build |
 | `src/images/`, `src/fonts/`, `src/data.json` | Static assets copied into the production build |
-| `dist/` | Generated, ignored production site deployed by GitHub Actions |
+| `dist/` | Generated production site deployed by GitHub Actions |
 | `.github/workflows/deploy-pages.yml` | Build and deployment workflow for GitHub Pages |
 
 Edit the source templates, Sass, scripts, and static assets rather than files in `dist/`. Run `npm run build` to recreate the production site. The build expands HTML includes, compiles Sass, and copies the runtime files into `dist/`. Partials reduce duplication in the source; their markup is still included in each generated page.
