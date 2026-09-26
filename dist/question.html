@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Test your frontend knowledge with quizzes on HTML, CSS, JavaScript, and accessibility. Choose a topic, answer questions, and see your score." />
+  <link rel="stylesheet" href="./css/style.css" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png" />
+  <title>Question | Frontend quiz app</title>
+  <!-- 저장된 테마를 그리기 전에 적용해 페이지 이동 시 깜빡임을 막습니다. -->
+<script src="./js/theme-init.js"></script>
+
+</head>
+
+
+<body>
+  <div class="quiz-app cover">
+    <!-- 앱 전체를 감싸는 영역 -->
+    <div class="center">
+      <div class="stack">
+        <header class="quiz-header cluster" data-justify="between">
+  <!-- 현재 과목과 테마 설정 -->
+  <div class="current-topic cluster">
+    <!-- 현재 퀴즈 주제 -->
+    
+      <span
+        class="topic-icon topic-icon--"
+        aria-hidden="true"
+      ></span>
+      <span></span>
+    
+  </div>
+  <div class="theme-control cluster">
+    <!-- 테마 스위치 -->
+    <button type="button" class="light-button" aria-label="Switch to light mode" aria-pressed="false">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path fill="#626C7F"
+          d="M12 1.5a.75.75 0 0 1 .75.75v1.5a.75.75 0 1 1-1.5 0v-1.5A.75.75 0 0 1 12 1.5Zm0 15a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0-1.5a3 3 0 1 1 0-6 3 3 0 0 1 0 6Zm9.75-2.25a.75.75 0 1 0 0-1.5h-1.5a.75.75 0 1 0 0 1.5h1.5ZM12 19.5a.75.75 0 0 1 .75.75v1.5a.75.75 0 1 1-1.5 0v-1.5a.75.75 0 0 1 .75-.75Zm-8.25-6.75a.75.75 0 1 0 0-1.5h-1.5a.75.75 0 1 0 0 1.5h1.5Zm.969-8.031a.75.75 0 0 1 1.062 0l1.5 1.5a.751.751 0 0 1-1.062 1.062l-1.5-1.5a.75.75 0 0 1 0-1.062Zm1.062 14.562a.75.75 0 1 1-1.062-1.06l1.5-1.5a.75.75 0 1 1 1.062 1.06l-1.5 1.5Zm13.5-14.562a.75.75 0 0 0-1.062 0l-1.5 1.5a.751.751 0 0 0 1.062 1.062l1.5-1.5a.75.75 0 0 0 0-1.062Zm-1.062 14.562a.75.75 0 0 0 1.062-1.06l-1.5-1.5a.75.75 0 0 0-1.062 1.06l1.5 1.5Z" />
+      </svg>
+    </button>
+    <!-- Cluster를 이용해 스위치와 텍스트를 나란히 중앙 정렬합니다. -->
+    <label class="toggle-container cluster">
+
+      <!-- 1. 실제 기능은 체크박스가 하지만, 화면에서는 숨깁니다. -->
+      <!-- 🌟 role="switch"를 주면 화면 낭독기가 "체크박스" 대신 "스위치"라고 읽어줍니다! -->
+      <input type="checkbox" class="sr-only" role="switch" name="use-darkmode">
+
+      <!-- 2. 우리가 눈으로 볼 스위치의 트랙(배경)과 손잡이(가상 요소) -->
+      <span class="toggle-track" aria-hidden="true"></span>
+
+      <!-- 3. 사용자가 읽을 라벨 텍스트 -->
+      <span class="toggle-label sr-only">Dark mode</span>
+
+    </label>
+    <button type="button" class="dark-button" aria-label="Switch to dark mode" aria-pressed="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path fill="#626C7F"
+          d="M11.775 4.522A7.5 7.5 0 1 1 4.898 16.09c2.104-.57 4.974-1.953 6.24-5.326.828-2.211.876-4.408.637-6.241ZM20.184 12a8.997 8.997 0 0 0-9.315-8.994.75.75 0 0 0-.713.888c.345 1.821.42 4.092-.424 6.342-1.2 3.201-4.203 4.26-6.115 4.606a.75.75 0 0 0-.542 1.066A9 9 0 0 0 20.184 12Z" />
+      </svg>
+    </button>
+  </div>
+</header>
+
+        <!-- aria-busy="true"는 보조 기술에 “지금 이 영역을 변경하고 있으니 아직 최종 상태가 아니다”라는 신호를 줍니다.  -->
+        <main aria-busy="true" id="main" class="switcher">
+          <div class="quiz-loading stack">
+            <p class="quiz-load-message" role="status">Loading questions?</p>
+            <button class="quiz-retry quiz-submit" type="button" hidden>Try Again</button>
+            <a href="./index.html">Back to topics</a>
+          </div>
+          <!-- 퀴즈 문제와 진행상태 -->
+          <div class="quiz-question quiz-question-panel stack" hidden>
+            <div class="stack outer">
+              <div class="stack inner">
+                <p class="quiz-counter"></p>
+                <h1 class="quiz-question"></h1>
+              </div>
+              <progress class="quiz-progress" max="10" value="0" aria-label="Current question">0 of 10</progress>
+            </div>
+          </div>
+            <!-- 답변 선택  -->
+          <form class="quiz-form stack" hidden>
+            <fieldset class="answer-options stack">
+              <legend class="sr-only">Select the correct answer.</legend>
+              <label class="answer-option">
+                <input type="radio" class="answer-option__input sr-only" name="answer" value="A">
+                <span class="answer-option__text"></span>
+              </label>
+              <label class="answer-option">
+                <input type="radio" class="answer-option__input sr-only" name="answer" value="B">
+                <span class="answer-option__text"></span>
+              </label>
+              <label class="answer-option">
+                <input type="radio" class="answer-option__input sr-only" name="answer" value="C">
+                <span class="answer-option__text"></span>
+              </label>
+              <label class="answer-option">
+                <input type="radio" class="answer-option__input sr-only" name="answer" value="D">
+                <span class="answer-option__text"></span>
+              </label>
+            </fieldset>
+            <!-- 스크린 리더 및 화면 안내 피드백 텍스트 설정 -->
+            <p class="quiz-feedback sr-only" role="status"></p>
+            <button type="submit" class="quiz-submit" disabled>Submit Answer</button>
+            <!-- role="alert": 해당 영역에 새로운 텍스트가 들어가면 스크린 리더가 현재 읽고 있던 내용을 멈추고 이 경고 메시지를 사용자에게 즉각 소리 내어 전달하도록 지시합니다 -->
+            <!-- aria-atomic="true": 요소 내부의 텍스트 일부만 변경되더라도 전체 문장을 처음부터 끝까지 온전하게 읽어주도록 설정합니다 -->
+            <p id="quiz-error-announcement" class="sr-only" role="alert" aria-atomic="true"></p>
+            <div class="cluster error-message" data-gap="small">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 40 40">
+                <path fill="#EE5454"
+                  d="M20 5a15 15 0 1 1 0 30 15 15 0 0 1 0-30Zm0 2.5a12.5 12.5 0 1 0 0 25 12.5 12.5 0 0 0 0-25Zm-5.402 7.415.142-.175a1.25 1.25 0 0 1 1.595-.143l.175.143L20 18.233l3.49-3.493a1.25 1.25 0 0 1 1.595-.143l.175.143a1.25 1.25 0 0 1 .142 1.595l-.142.175L21.767 20l3.493 3.49a1.25 1.25 0 0 1 .142 1.595l-.142.175a1.25 1.25 0 0 1-1.595.142l-.175-.142L20 21.767l-3.49 3.493a1.25 1.25 0 0 1-1.595.142l-.175-.142a1.25 1.25 0 0 1-.143-1.595l.143-.175L18.233 20l-3.493-3.49a1.25 1.25 0 0 1-.143-1.595Z"
+                  aria-hidden="true" />
+              </svg>
+              <span id="quiz-error-text">Please select an answer</span>
+            </div>
+          </form>
+        </main>
+        <!-- 진행 상태를 세션 스토리지에 저장하지 못했을때 화면에 표시한다. -->
+        <p class="storage-notice" role="status"></p>
+        <footer class="attribution">
+  Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
+  Coded by <a href="https://www.frontendmentor.io/profile/jonghwascript">jonghwascript</a>.
+</footer>
+
+      </div>
+    </div>
+  </div>
+  <script src="./js/lib/jquery-4.0.0.min.js"></script>
+<script src="./js/theme.js"></script>
+
+
+  <script src="./js/quiz-common.js"></script>
+  <script src="./js/question-data.js"></script>
+  <script src="./js/question.js"></script>
+</body>
+
+</html>
