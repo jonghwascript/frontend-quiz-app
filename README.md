@@ -140,7 +140,7 @@ The input stays focusable even though it is visually hidden. A parent selector m
 
 ```css
 .answer-option:has(input:focus-visible) {
-  outline: 2px solid #306aff;
+  outline: 2px solid var(--color-focus);
   outline-offset: 4px;
 }
 ```
@@ -217,11 +217,13 @@ html {
   --theme: light;
   --color-bg: #{$Grey-50};
   --color-text: #{$Blue-900};
+  --color-focus: #{$Blue-500};
 
   &[data-theme='dark'] {
     --theme: dark;
     --color-bg: #{$Blue-900};
     --color-text: #{$White};
+    --color-focus: #{$White};
   }
 }
 
@@ -287,20 +289,25 @@ The subject icon box uses `aspect-ratio: 1`, and its pseudo-element fills that b
 
 #### Translate design layers into CSS backgrounds
 
-The lighter submit-button treatment uses a translucent white layer over a solid purple background:
+The lighter hover treatment for Submit Answer, Next Question, and Play Again uses a translucent white layer over their solid purple backgrounds:
 
 ```css
-.quiz-form .quiz-submit {
-  background-image: linear-gradient(#ffffff80, #ffffff80);
+.quiz-form .quiz-submit,
+.question-result .again-button {
   background-color: #a729f5;
 }
 
-.quiz-form .quiz-submit.active {
-  background-image: none;
+@media (hover: hover) and (pointer: fine) {
+  .quiz-form .quiz-submit:hover:not(:disabled),
+  .question-result .again-button:hover:not(:disabled) {
+    background-image: linear-gradient(#ffffff80, #ffffff80);
+  }
 }
 ```
 
-The background image is painted above the background color. This recreates the layered surface without reducing the opacity of the button's text and all of its descendants. For responsive page backgrounds, the project changes the image variable at explicit breakpoints instead of keeping several full-size backgrounds active as a positioning trick.
+The background image is painted above the background color. This recreates the layered surface without reducing the opacity of the button's text and all of its descendants. The overlay appears only while an enabled button is hovered with a hover-capable, precise primary pointer.
+
+For responsive page backgrounds, the project changes the image variable at explicit breakpoints. The mobile, tablet, and desktop patterns have distinct compositions, so viewport breakpoints remain appropriate even though the Switcher layout responds intrinsically to available space.
 
 #### Treat hidden content as an explicit state
 
@@ -355,6 +362,22 @@ The active theme button uses `aria-pressed="true"`. Its cursor returns to the de
 Changing the cursor is a visual cue; it does not disable the button. Selection state, keyboard focus, and whether a control can be activated must be considered separately.
 
 ### Review findings and improvements
+
+#### Make footer links and focus rings follow the theme
+
+The attribution links used the same fixed blue in both themes, making them difficult to read against the dark background. They now use `color: inherit` to follow the page text color while retaining their default underline.
+
+Subject links and answer cards now share `--color-focus`: blue (`#306aff`) in light mode and white (`#ffffff`) in dark mode. The header's toggle configuration sets `--toggle-focus: var(--color-focus)` so the switch uses the same theme-aware color instead of the utility's mint fallback. Both answer-card and subject-link focus rules use `outline: 2px solid var(--color-focus)` and retain their existing outline offset.
+
+#### Restore hover feedback on action buttons
+
+The submit button had a permanent `active` class whose rule removed the white overlay, and no hover rule restored it. The class was an ordinary CSS class, not the `:active` pseudo-class. Removing it, its styling block, and the base overlay lets the hover rule above control the effect directly. Submit Answer and Next Question share the same button; Play Again now receives the same treatment. Disabled buttons are excluded.
+
+#### Share a description across all pages
+
+The shared head partial now includes a meta description summarizing the quiz topics and flow. Building the HTML includes it in the subject, question, and results pages, addressing the missing-description issue from one source file.
+
+The HTML and Sass builds passed, and the generated descriptions, theme tokens, and hover selectors were checked. Browser interaction checks, measured contrast checks, and a Lighthouse rerun remain separate validation steps.
 
 #### Add hover feedback without overriding answer states
 

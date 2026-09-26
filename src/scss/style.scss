@@ -14,6 +14,7 @@ html {
   //기본 모드 (Light & Mobile) 변수
   --color-bg: #{$Grey-50};
   --color-text: #{$Blue-900};
+  --color-focus: #{$Blue-500};
   --bg-image: url(../images/pattern-background-mobile-light.svg);
 
   // 라이트 모드 상태에서의 반응형 이미지 교체
@@ -30,6 +31,7 @@ html {
     --theme: dark;
     --color-bg: #{$Blue-900};
     --color-text: #{$White};
+    --color-focus: #{$White};
 
     // 다크 모드 - 모바일 이미지
     --bg-image: url(../images/pattern-background-mobile-dark.svg);
@@ -106,6 +108,7 @@ body {
       --toggle-padding: 4px;
       --toggle-off: #{$Purple-600};
       --toggle-on: #{$Purple-600};
+      --toggle-focus: var(--color-focus);
     }
 
     .light-button,
@@ -237,22 +240,12 @@ body {
     inline-size: 100%;
     color: $White;
 
-    //피그마에서는 위에서부터 아래로 레이어가 쌓이므로 번역하면 다음과 같다.
-    //1층 (위 레이어): 흰색(FFFFFF)에 투명도 50%
-    background-image: linear-gradient(#ffffff80, #ffffff80);
-    //2층: 바탕에 깔리는 기본 보라색
     background-color: $Purple-600;
 
     padding: clamp(1rem, calc(0.046rem + 4.071vw), 2rem);
 
     font: $TextPreset-4-m;
     border-radius: clamp(0.75rem, calc(0.034rem + 3.053vw), 1.5rem);
-
-    &.active {
-      color: $White;
-      background-color: $Purple-600;
-      background-image: none;
-    }
 
     cursor: pointer;
   }
@@ -348,6 +341,15 @@ body {
   }
 }
 
+.quiz-form .quiz-submit,
+.question-result .again-button {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled) {
+      background-image: linear-gradient(#ffffff80, #ffffff80);
+    }
+  }
+}
+
 .quiz-score {
   .quiz-scored {
     font: $TextPreset-2-l;
@@ -365,5 +367,5 @@ body {
 }
 
 .attribution a {
-  color: hsl(228, 45%, 44%);
+  color: inherit;
 }
