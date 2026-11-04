@@ -1,0 +1,371 @@
+@use 'fonts'as *;
+@use 'reset'as *;
+@use 'variables'as *;
+@use 'mixins'as *;
+@use 'utilities'as *;
+@use 'layout'as *;
+@use 'icon'as *;
+@use 'quiz-options'as *;
+
+html {
+  font-size: 100%;
+  --theme: light;
+
+  //기본 모드 (Light & Mobile) 변수
+  --color-bg: #{$Grey-50};
+  --color-text: #{$Blue-900};
+  --color-focus: #{$Blue-500};
+  --bg-image: url(../images/pattern-background-mobile-light.svg);
+
+  // 라이트 모드 상태에서의 반응형 이미지 교체
+  @include mq('tablet') {
+    --bg-image: url(../images/pattern-background-tablet-light.svg);
+  }
+
+  @include mq('desktop') {
+    --bg-image: url(../images/pattern-background-desktop-light.svg);
+  }
+
+  // 다크 모드 (Dark) 변수 덮어쓰기
+  &[data-theme='dark'] {
+    --theme: dark;
+    --color-bg: #{$Blue-900};
+    --color-text: #{$White};
+    --color-focus: #{$White};
+
+    // 다크 모드 - 모바일 이미지
+    --bg-image: url(../images/pattern-background-mobile-dark.svg);
+
+    // 다크 모드 상태에서의 반응형 이미지 교체
+    @include mq('tablet') {
+      --bg-image: url(../images/pattern-background-tablet-dark.svg);
+    }
+
+    @include mq('desktop') {
+      --bg-image: url(../images/pattern-background-desktop-dark.svg);
+    }
+  }
+}
+
+body {
+  font-family:
+    'Rubik',
+    system-ui,
+    -apple-system,
+    sans-serif;
+  color: var(--color-text);
+
+  // 배경색과 배경 이미지를 한 줄로 깔끔하게
+  background: var(--color-bg) var(--bg-image) no-repeat;
+  background-size: cover;
+  background-position: top center;
+}
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// box의 모든 배경색
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+.box {
+  background-color: transparent;
+}
+
+.quiz-app {
+  padding-inline: 0;
+}
+
+.quiz-app>.center {
+  box-sizing: border-box;
+  inline-size: 100%;
+  // 콘텐츠 최대 너비 1157px에 양쪽 패딩 4rem씩 포함한다.
+  max-inline-size: calc(72.3125rem + 8rem);
+
+  //모바일 24px, 태블릿 64px
+  padding-inline: clamp(1.5rem, calc(-0.885rem + 10.178vw), 4rem);
+
+  >.stack {
+    gap: clamp(2rem, calc(0.477rem + 7.614vw), 6.188rem);
+  }
+}
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Header
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+.quiz-header {
+  align-content: flex-start;
+  //줄바꿈 시 세로로 찢어지는 현상 방지
+  gap: 0.5rem 1rem; //8px 16px
+
+  .current-topic {
+    font: $TextPreset-4-m;
+    gap: clamp(1rem, calc(0.523rem + 2.036vw), 1.5rem);
+  }
+
+  .theme-control {
+    gap: clamp(0.5rem, calc(0.023rem + 2.036vw), 1rem);
+
+    .toggle-container {
+      --toggle-width: clamp(2rem, calc(1.046rem + 4.071vw), 3rem);
+      --toggle-height: clamp(1.25rem, calc(0.773rem + 2.036vw), 1.75rem);
+      --toggle-padding: 4px;
+      --toggle-off: #{$Purple-600};
+      --toggle-on: #{$Purple-600};
+      --toggle-focus: var(--color-focus);
+    }
+
+    .light-button,
+    .dark-button {
+      border: 0;
+      background-color: transparent;
+      cursor: pointer;
+
+      // 현재 선택된 모드의 버튼(light 모드의 해 아이콘, dark 모드의 달 아이콘)에는 기본 커서를 적용
+      &[aria-pressed='true'] {
+        cursor: default;
+      }
+
+      svg {
+        width: clamp(1rem, calc(0.523rem + 2.036vw), 1.5rem);
+        height: auto;
+        aspect-ratio: 1;
+        background-color: transparent;
+        cursor: inherit;
+
+        @container style(--theme : dark) {
+          path {
+            fill: #fff;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 스위처
+#main {
+  --threshold: 48rem;
+  // 가로일 땐 좌우 여백, 세로일 땐 위아래 여백으로 작동
+  gap: clamp(2.5rem, calc(-0.137rem + 11.253vw), 8rem);
+
+  // 가로 배치일 때의 비율 설정
+  .left {
+    flex-grow: 465;
+  }
+
+  .right {
+    flex-grow: 564;
+  }
+}
+
+.quiz-intro {
+  gap: clamp(1rem, calc(0.273rem + 3.636vw), 3rem);
+}
+
+.question-list,
+.topic-list {
+  li {
+    max-width: 100%;
+  }
+}
+
+.topic-list {
+  gap: 1rem; //16px
+
+  //태블릿 구간 (예: 768px ~ 1023px)
+  @include mq('tablet', 'desktop') {
+    gap: 1.5rem; //24px;
+  }
+
+  .topic-link {
+    .topic-text {
+      font: $TextPreset-4-m;
+    }
+  }
+}
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Intro
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+.quiz-intro {
+  .quiz-title {
+    font: $TextPreset-2-l;
+
+    strong {
+      font: $TextPreset-2-m;
+      display: block;
+    }
+  }
+
+  .quiz-pick {
+    font: $TextPreset-5-r-italic;
+    color: $Grey-500;
+
+    @container style(--theme : dark) {
+      color: $Blue-300;
+    }
+  }
+}
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Question
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+.quiz-question {
+  >.stack {
+    gap: clamp(1.5rem, calc(-2.136rem + 18.182vw), 11.5rem);
+
+    >.stack {
+      gap: clamp(1rem, calc(0.818rem + 0.909vw), 1.5rem);
+    }
+  }
+
+  .quiz-counter {
+    font: $TextPreset-5-r-italic;
+  }
+
+  .quiz-question {
+    font: $TextPreset-3-m;
+  }
+}
+
+.quiz-form {
+  .answer-options {
+    gap: 1rem;
+
+    //태블릿 구간 (예: 768px ~ 1023px)
+    @include mq('tablet', 'desktop') {
+      gap: 1.5rem; //24px;
+    }
+  }
+
+  .quiz-submit {
+    border: 1px solid transparent;
+    inline-size: 100%;
+    color: $White;
+
+    background-color: $Purple-600;
+
+    padding: clamp(1rem, calc(0.046rem + 4.071vw), 2rem);
+
+    font: $TextPreset-4-m;
+    border-radius: clamp(0.75rem, calc(0.034rem + 3.053vw), 1.5rem);
+
+    cursor: pointer;
+  }
+
+  .error-message {
+    text-align: center;
+    font: $TextPreset-5-r;
+    color: $Red-500;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+
+    >svg {
+      width: clamp(2rem, calc(1.523rem + 2.036vw), 2.5rem);
+      height: auto;
+      aspect-ratio: 1;
+    }
+
+    &.show {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Score
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+.question-result {
+  gap: clamp(1rem, calc(0.046rem + 4.071vw), 2rem); //16px, 32px
+
+  .output.box {
+    background-color: $White;
+    padding: clamp(2rem, calc(1.286rem + 3.571vw), 3rem);
+    box-shadow: 10px 20px 30px rgba(0, 0, 0, 0.08);
+
+    @container style(--theme : dark) {
+      background-color: $Blue-850;
+    }
+
+    .outer.stack {
+      gap: clamp(1rem, calc(-0.071rem + 5.357vw), 2.5rem);
+
+      .current-topic {
+        font: $TextPreset-4-m;
+        color: $Blue-900;
+        gap: clamp(1rem, calc(0.523rem + 2.036vw), 1.5rem); //16px, 24px
+
+        @container style(--theme : dark) {
+          color: $White;
+        }
+      }
+
+      .inner.stack {
+        text-align: center;
+
+        .quiz-score {
+          font: $TextPreset-1-m;
+          color: $Blue-900;
+
+          @container style(--theme : dark) {
+            color: $White;
+          }
+        }
+
+        .quiz-counter {
+          font: $TextPreset-4-m;
+          color: $Grey-500;
+
+          @container style(--theme : dark) {
+            color: $Blue-300;
+          }
+        }
+      }
+    }
+  }
+
+  .again-button {
+    border: 1px solid transparent;
+    inline-size: 100%;
+    color: $White;
+
+    padding: clamp(1rem, calc(0.046rem + 4.071vw), 2rem);
+
+    color: $White;
+    background-color: $Purple-600;
+
+    font: $TextPreset-4-m;
+    border-radius: clamp(0.75rem, calc(0.034rem + 3.053vw), 1.5rem);
+
+    cursor: pointer;
+  }
+}
+
+.quiz-form .quiz-submit,
+.question-result .again-button {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled) {
+      background-image: linear-gradient(#ffffff80, #ffffff80);
+    }
+  }
+}
+
+.quiz-score {
+  .quiz-scored {
+    font: $TextPreset-2-l;
+
+    strong {
+      font: $TextPreset-2-m;
+    }
+  }
+}
+
+.attribution {
+  margin-block-start: 0.625rem;
+  font-size: 0.6875rem;
+  text-align: center;
+}
+
+.attribution a {
+  color: inherit;
+}

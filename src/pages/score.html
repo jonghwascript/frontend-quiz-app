@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+
+@@include('../partials/head.html', {
+  "title": "Results | Frontend quiz app"
+})
+
+<body>
+  <div class="quiz-app cover">
+    <!-- 앱 전체를 감싸는 영역 -->
+    <div class="center">
+      <div class="stack">
+        @@include('../partials/header.html', {
+        "showTopic": true,
+        "topicName": "",
+        "topicKey": ""
+        })
+        <main aria-busy="true" id="main" class="switcher">
+          <!-- 퀴즈 안내와 과목 선택 -->
+          <p class="result-loading" role="status">Loading results?</p>
+          <div class="quiz-score quiz-score-panel stack" hidden>
+            <div class="stack outer">
+              <div class="stack inner">
+                <h1 class="quiz-scored">
+                  Quiz completed <strong>You scored...</strong>
+                </h1>
+              </div>
+            </div>
+          </div>
+          <div class="question-result stack" hidden>
+            <div class="output box">
+              <div class="outer stack">
+                <!-- 현재 과목과 테마 설정 -->
+                <div class="current-topic cluster">
+                  <!-- 현재 퀴즈 주제 -->
+                  <span class="topic-icon"></span>
+                  <span></span>
+                </div>
+                <div class="inner stack" style="--space:16px;">
+                  <output class="quiz-score"></output>
+                  <p class="quiz-counter">out of 10</p>
+                </div>
+              </div>
+            </div>
+            <button class="again-button" type="button">Play Again</button>
+          </div>
+        </main>
+        @@include('../partials/footer.html')
+      </div>
+    </div>
+  </div>
+  @@include('../partials/scripts.html')
+  <script src="./js/quiz-common.js"></script>
+  <script src="./js/score.js"></script>
+</body>
+
+</html>

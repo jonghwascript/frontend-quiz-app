@@ -1,0 +1,99 @@
+// Layout primitives from Every Layout by Heydon Pickering & Andy Bell
+// https://every-layout.dev/layouts — © Heydon Pickering & Andy Bell
+// Obtained via https://gist.github.com/Arkweid/18cc3e64c84e1292c2b3a5143bb02a2b
+// (no licence stated), then fixed and modified for this project.
+// Used under a purchased Every Layout licence held by the repository owner.
+// Not covered by this repository's license. Do not copy or redistribute.
+
+.stack {
+  --space: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--space, 1.5rem);
+}
+
+.stack > * {
+  margin-block: 0;
+}
+
+.box {
+  --padding: 1.5rem;
+  padding: var(--padding);
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  color: #1e293b;
+  border-radius: 0.5rem;
+  outline: 0.125rem solid transparent;
+  outline-offset: -0.125rem;
+}
+
+.center {
+  box-sizing: content-box;
+  max-inline-size: 60ch;
+  margin-inline: auto;
+  padding-inline-start: var(--s1, 1.5rem);
+  padding-inline-end: var(--s1, 1.5rem);
+}
+
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space, 1rem);
+  justify-content: center;
+  align-items: center;
+}
+
+.cluster[data-justify='start'] {
+  justify-content: flex-start;
+}
+
+.cluster[data-justify='between'] {
+  justify-content: space-between;
+}
+
+.cluster[data-gap='small'] {
+  --space: 0.5rem;
+}
+
+.switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gutter, var(--s1, 1.5rem));
+  --threshold: 30rem;
+}
+
+.switcher > * {
+  flex-grow: 1;
+  flex-basis: calc((var(--threshold, 48rem) - 100%) * 999);
+}
+
+.switcher > :nth-last-child(n + 5),
+.switcher > :nth-last-child(n + 5) ~ * {
+  flex-basis: 100%;
+}
+
+.cover {
+  --space: var(--s1, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  min-block-size: 100vh;
+  padding: var(--space);
+}
+
+.cover > * {
+  margin-block: var(--s1, 1.5rem);
+}
+
+.cover > :first-child:not(h1) {
+  margin-block-start: 0;
+}
+
+.cover > :last-child:not(h1) {
+  margin-block-end: 0;
+}
+
+.cover > h1,
+.cover > .center {
+  margin-block: auto;
+}

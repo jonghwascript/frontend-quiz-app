@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+
+@@include('../partials/head.html', {
+  "title": "Frontend Mentor | Frontend quiz app"
+})
+
+<body>
+  <div class="quiz-app cover">
+    <!-- 앱 전체를 감싸는 영역 -->
+    <div class="center">
+      <div class="stack">
+        @@include('../partials/header.html', {
+        "showTopic": false,
+        "topicName": "",
+        "topicKey": ""
+        })
+        <main id="main" class="switcher">
+          <!-- 퀴즈 안내와 과목 선택 -->
+          <div class="quiz-intro left stack">
+            <h1 class="quiz-title">
+              Welcome to the <strong>Frontend Quiz!</strong>
+            </h1>
+            <p class="quiz-pick">
+              Pick a subject to get started.
+            </p>
+          </div>
+          <ul class="topic-list right stack">
+            <li>
+              <a href="./question.html?topic=HTML" class="cluster topic-link" data-justify="start">
+                <span class="topic-icon topic-icon--html" aria-hidden="true"></span>
+                <span class="topic-text">HTML</span>
+              </a>
+            </li>
+            <li>
+              <a href="./question.html?topic=CSS" class="cluster topic-link" data-justify="start">
+                <span class="topic-icon topic-icon--css" aria-hidden="true"></span>
+                <span class="topic-text">CSS</span>
+              </a>
+            </li>
+            <li>
+              <a href="./question.html?topic=JavaScript" class="cluster topic-link" data-justify="start">
+                <span class="topic-icon topic-icon--js" aria-hidden="true"></span>
+                <span class="topic-text">JavaScript</span>
+              </a>
+            </li>
+            <li>
+              <a href="./question.html?topic=Accessibility" class="cluster topic-link" data-justify="start">
+                <span class="topic-icon topic-icon--accessibility" aria-hidden="true"></span>
+                <span class="topic-text">Accessibility</span>
+              </a>
+            </li>
+          </ul>
+        </main>
+        @@include('../partials/footer.html')
+      </div>
+    </div>
+  </div>
+  @@include('../partials/scripts.html')
+</body>
+
+</html>
